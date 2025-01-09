@@ -1,4 +1,4 @@
-# equipo-c23-41-webapp
+# Equipo-c23-41-webapp
 
 ## Contribuciones
 
@@ -9,4 +9,4 @@
 - **Justo Gauna**
 - **Ivan Bohorquez**
 
-Si deseas contribuir a este temario, por favor abre un **issue** o envía un **pull request**.
+Si deseas contribuir a este proyecto, por favor abre un **issue** o envía un **pull request**.
