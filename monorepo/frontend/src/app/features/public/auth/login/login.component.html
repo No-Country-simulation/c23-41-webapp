@@ -1,0 +1,64 @@
+<section class="w-[370px] flex items-center justify-center" [@fadeInOut]>
+    <p-card class="w-full overflow-hidden border-0 p-0 m-0 shadow-lg rounded-xl">
+        <ng-template pTemplate="content">
+            <section class="p-0 m-0 pt-4">
+                <div class="px-8 pt-2 pb-4 space-y-6">
+                    <div class="text-center space-y-2">
+                        <h1 class="text-2xl font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Skillio</h1>
+                        <p class="text-sm text-muted-foreground">
+                            Where skills meet collaboration
+                        </p>
+                      </div>
+                </div>
+            </section>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 p-6">
+                <div class="space-y-4">
+                    <div>
+                        <label for="username" class="text-sm text-muted-foreground mb-2 block">Username</label>
+                        <input 
+                            pInputText 
+                            id="username" 
+                            aria-describedby="username-help" 
+                            class="h-11 bg-white/50 transition-colors focus:bg-white rounded-lg p-2 w-full border"
+                            formControlName="email"/>
+                    </div>
+                    <div>
+                        <label for="password" class="text-sm text-muted-foreground mb-2 block">Password</label>
+                        <input 
+                            pInputText 
+                            id="password" 
+                            type="password"
+                            class="h-11 bg-white/50 transition-colors rounded-lg focus:bg-white p-2 w-full border"
+                            aria-describedby="password-help" 
+                            formControlName="password"/>
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full h-11 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md rounded-lg transition-colors cursor-pointer"
+                    [disabled]="loginForm.invalid || isLoading"
+                    >
+                    {{isLoading ? "logging in..." : "Login"}}
+                </button>
+            </form>
+            <div class="text-center">
+                <a
+                  href="/forgot-password"
+                  class="text-sm text-muted-foreground hover:text-emerald-600 transition-colors"
+                >
+                Forgot your password?
+                </a>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors w-full" (click)="navigateToRegister()">
+                <div class="p-4"> 
+                    <p class="text-center text-sm text-white">
+                        New to Skillio?
+                      <span class="font-semibold">Register now</span>
+                    </p>
+                </div>
+            </button>
+        </ng-template>
+    </p-card>
+</section>
