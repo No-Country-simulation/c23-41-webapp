@@ -1,0 +1,123 @@
+<p-card class="w-full overflow-hidden border-0 p-0 m-0" [@fadeInOut]>
+  <ng-template pTemplate="content">
+    <section class="flex md:flex-row md:max-w-5xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
+      <div class="flex-1 p-8 space-y-6">
+        <div class="space-y-2">
+          <h1 class="text-2xl font-semibold tracking-tight text-emerald-950">
+            Join {{appName}}
+          </h1>
+          <div class="h-1 w-12 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Become part of our university community for skill exchange. 
+            Learn, teach, and grow alongside other students and professionals.
+          </p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <div class="space-y-2">
+            <input
+              pInputText
+              type="text"
+              formControlName="fullName"
+              placeholder="Full Name"
+              class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
+            />
+          </div>
+          <div class="space-y-2">
+            <input
+              pInputText
+              type="email"
+              formControlName="email"
+              placeholder="Institutional Email"
+              class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
+            />
+            <app-error-message [formGroup]="registerForm" controlName="email" fieldName="Email"></app-error-message>
+          </div>
+          <div class="space-y-2">
+            <input
+              pInputText
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+              class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
+            />
+            <app-error-message [formGroup]="registerForm" controlName="password" fieldName="Password"></app-error-message>
+          </div>
+          <div class="space-y-2 relative">
+            <p-multiSelect 
+              [options]="skills" 
+              formControlName="skills" 
+              placeholder="Select Skills"
+              optionLabel="name" 
+              display="chip" 
+              [showClear]="true" 
+              styleClass="w-full border max-w-md mx-auto" 
+              panelStyleClass="z-[1000]" 
+              variant="outlined"
+              appendTo="body" 
+            />
+            <app-error-message [formGroup]="registerForm" controlName="skills" fieldName="Skills"></app-error-message>
+          </div>
+          <button
+            pButton
+            type="submit"
+            label="Create Account"
+            class="w-full max-w-md h-11 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md rounded-md mx-auto"
+            [disabled]="registerForm.invalid || isLoading"
+          ></button>
+        </form>
+
+        <div class="text-center text-sm text-gray-600">
+          Already have an account?
+          <a (click)="navigateToLogin()" href="javascript:void(0)" class="text-emerald-600 hover:text-emerald-700 font-medium cursor-pointer">
+            Log in here
+          </a>
+        </div>
+      </div>
+      <!-- Right Column - Benefits -->
+      <div class="flex-1 bg-gradient-to-br from-emerald-600 to-teal-600 text-white p-8 relative">
+        <div class="absolute bottom-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-16 translate-y-16"></div>
+        <div class="relative space-y-6">
+          <h2 class="text-xl font-semibold">Why Choose {{appName}}?</h2>
+          <div class="space-y-6">
+            <div class="flex gap-4 items-start">
+              <div class="p-2 bg-white/10 rounded-lg">
+                <lucide-icon [img]="users" class="h-5 w-5"></lucide-icon>
+              </div>
+              <div>
+                <h3 class="font-medium">University Community</h3>
+                <p class="text-sm text-white/80">
+                  Connect with students and professionals from your institution who share your interests.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+              <div class="p-2 bg-white/10 rounded-lg">
+                <lucide-icon [img]="star" class="h-5 w-5"></lucide-icon>
+              </div>
+              <div>
+                <h3 class="font-medium">Skill Exchange</h3>
+                <p class="text-sm text-white/80">
+                  Learn new skills while sharing your knowledge with others.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-4 items-start">
+              <div class="p-2 bg-white/10 rounded-lg">
+                <lucide-icon [img]="lightbulb" class="h-5 w-5"></lucide-icon>
+              </div>
+              <div>
+                <h3 class="font-medium">Personal Development</h3>
+                <p class="text-sm text-white/80">
+                  Improve your professional skills and build a valuable network.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+</p-card>
