@@ -1,10 +1,10 @@
 <section class="w-[370px] flex items-center justify-center" [@fadeInOut]>
-    <p-card class="w-full overflow-hidden border-0 p-0 m-0 shadow-lg rounded-xl">
+    <p-card class="w-full overflow-hidden p-0 m-0 border rounded-xl">
         <ng-template pTemplate="content">
             <section class="p-0 m-0 pt-4">
                 <div class="px-8 pt-2 pb-4 space-y-6">
                     <div class="text-center space-y-2">
-                        <h1 class="text-2xl font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Skillio</h1>
+                        <h1 class="text-2xl font-semibold bg-gradient-to-r from-emerald-600 to-secondary bg-clip-text text-transparent">Skillio</h1>
                         <p class="text-sm text-muted-foreground">
                             Where skills meet collaboration
                         </p>
@@ -35,7 +35,7 @@
                 </div>
                 <button
                     type="submit"
-                    class="w-full h-11 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md rounded-lg transition-colors cursor-pointer"
+                    class="w-full h-11 bg-secondary hover:from-emerald-700 hover:to-teal-700 text-emerald-700 shadow-md rounded-lg transition-colors cursor-pointer"
                     [disabled]="loginForm.invalid || isLoading"
                     >
                     {{isLoading ? "logging in..." : "Login"}}
@@ -51,11 +51,11 @@
             </div>
         </ng-template>
         <ng-template pTemplate="footer">
-            <button class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors w-full" (click)="navigateToRegister()">
+            <button class="bg-secondary hover:from-emerald-600 hover:to-teal-600 transition-colors w-full" (click)="navigateToRegister()">
                 <div class="p-4"> 
-                    <p class="text-center text-sm text-white">
+                    <p class="text-center text-sm text-emerald-600">
                         New to Skillio?
-                      <span class="font-semibold">Register now</span>
+                      <span class="font-semibold text-emerald-600">Register now</span>
                     </p>
                 </div>
             </button>
