@@ -1,21 +1,31 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Bell, LayoutGrid, LucideAngularModule, Plus, User } from 'lucide-angular';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
+import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { IconLogoComponent } from '../../../shared/components/icon-logo/icon-logo.component';
+
+
+interface HeaderItem {
+  label?: string; 
+  icon?: string;  
+  type: 'button' | 'icon'; 
+  action?: string; 
+  classes?: string; 
+}
 
 @Component({
   selector: 'app-vertical-header',
   standalone: true,
-  imports: [TooltipModule, ButtonModule],
+  imports: [CommonModule, TooltipModule, ButtonModule, ToolbarModule, LucideAngularModule,  AutoCompleteModule, IconLogoComponent],
   templateUrl: './vertical-header.component.html',
   styleUrl: './vertical-header.component.scss'
 })
 export class VerticalHeaderComponent {
-  navOptions = [
-    { label: 'Home', icon: 'pi pi-home', tooltip: 'Home Feed' },
-    { label: 'Learning', icon: 'pi pi-graduation-cap', tooltip: 'Learning Path' },
-    { label: 'Network', icon: 'pi pi-users', tooltip: 'Network' },
-    { label: 'Messages', icon: 'pi pi-comments', tooltip: 'Messages' },
-    { label: 'Achievements', icon: 'pi pi-trophy', tooltip: 'Achievements' },
-    { label: 'Saved Items', icon: 'pi pi-bookmark', tooltip: 'Saved Items' },
-  ];
+  readonly userIcon = User;
+  readonly bellIcon = Bell;
+  readonly layoutGridIcon = LayoutGrid;
+  readonly plusIcon = Plus;
 }

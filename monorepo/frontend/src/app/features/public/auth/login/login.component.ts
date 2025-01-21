@@ -6,11 +6,12 @@ import {FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/
 import { InputTextModule } from 'primeng/inputtext';
 import { NavigateController } from '../../../../shared/controllers/navigate.controller';
 import { AnimationHandler } from '../../../../shared/animations/animation-handler';
+import { IconLogoComponent } from '../../../../shared/components/icon-logo/icon-logo.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardModule, ButtonModule, LucideAngularModule, InputTextModule, ReactiveFormsModule],
+  imports: [CardModule, ButtonModule, LucideAngularModule, InputTextModule, ReactiveFormsModule, IconLogoComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   animations: AnimationHandler.getFadeInOut()

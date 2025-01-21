@@ -3,12 +3,13 @@
         <ng-template pTemplate="content">
             <section class="p-0 m-0 pt-4">
                 <div class="px-8 pt-2 pb-4 space-y-6">
-                    <div class="text-center space-y-2">
-                        <h1 class="text-2xl font-semibold bg-gradient-to-r from-emerald-600 to-secondary bg-clip-text text-transparent">Skillio</h1>
+                    <div class="flex flex-col items-center justify-center text-center">
+                        <app-icon-logo></app-icon-logo>
                         <p class="text-sm text-muted-foreground">
-                            Where skills meet collaboration
+                          Where skills meet collaboration
                         </p>
                       </div>
+                      
                 </div>
             </section>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 p-6">

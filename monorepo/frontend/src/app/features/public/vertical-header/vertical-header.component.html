@@ -1,67 +1,34 @@
-<header class="flex w-20 flex-col items-center border-r border-gray-100 bg-white px-2 py-6 fixed h-screen">
-    <!-- Logo -->
-    <div class="mb-8">
-      <h1 class="text-xl font-bold text-[#10B981]">S</h1>
-    </div>
-
-    <!-- Main Navigation -->
-    <nav class="flex flex-1 flex-col items-center gap-4">
-        @for (option of navOptions; track $index) {
-            <ng-container>
-              <button
-                pButton
-                type="button"
-                class="p-button-rounded p-button-text text-gray-500 hover:bg-[#F2FCE2] hover:text-[#10B981]"
-                [icon]="option.icon"
-                pTooltip="{{ option.tooltip }}"
-                [tooltipOptions]="{ tooltipPosition: 'right', appendTo: 'body' }"
-              ></button>
-            </ng-container>
-        }
-
-      <!-- New Post Button -->
-      <button
-        pButton
-        type="button"
-        class="mt-4 p-button-rounded p-button-success text-white bg-[#10B981] hover:bg-[#059669]"
-        icon="pi pi-plus"
-        pTooltip="Create New Post"
-        [tooltipOptions]="{ tooltipPosition: 'right', appendTo: 'body' }"
-      ></button>
-    </nav>
-
-    <!-- User Section -->
-    <div class="flex flex-col items-center gap-4">
-      <button
-        pButton
-        type="button"
-        class="relative p-button-rounded p-button-text text-gray-500 hover:bg-[#F2FCE2] hover:text-[#10B981]"
-        icon="pi pi-bell"
-        pTooltip="Notifications"
-        [tooltipOptions]="{ tooltipPosition: 'right', appendTo: 'body' }"
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50 h-14">
+  <section class="h-full flex items-center justify-between container">
+    <div class="flex items-center space-x-4">
+      <a 
+        routerLink="/" 
+        class="text-xl font-bold text-black flex-shrink-0"
       >
-        <span
-          class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white"
-        >
-          3
-        </span>
-      </button>
-
+        <app-icon-logo></app-icon-logo>
+      </a>
+      <span class="hidden md:block w-64">
+        <!--<p-autoComplete placeholder="Search skills..." styleClass="border w-full px-4 "/>-->
+      </span>
+    </div>
+    
+    <div class="flex items-center justify-center space-x-6">
       <button
         pButton
-        type="button"
-        class="p-button-rounded p-button-text text-gray-500 hover:bg-[#F2FCE2] hover:text-[#10B981]"
-        icon="pi pi-cog"
-        pTooltip="Settings"
-        [tooltipOptions]="{ tooltipPosition: 'right', appendTo: 'body' }"
-      ></button>
-
-      <button class="p-button-rounded p-button-text" pTooltip="Your Profile" [tooltipOptions]="{ tooltipPosition: 'right', appendTo: 'body' }">
-        <img
-          src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-          alt="Avatar"
-          class="h-8 w-8 rounded-full ring-2 ring-[#F2FCE2]"
-        />
-      </button>
+        label="New Post"
+        class="bg-secondary text-black hover:bg-[#a7e65c] h-8 text-sm px-4"
+      >
+      <lucide-icon [img]="plusIcon" class="h-4 w-4 mr-2"></lucide-icon>
+    </button>
+      <p-button class="flex items-center justify-center h-full">
+        <lucide-icon [img]="userIcon" class=" h-4 w-4"></lucide-icon>
+      </p-button>
+      <p-button class="flex items-center justify-center h-full">
+        <lucide-icon [img]="bellIcon" class="h-4 w-4"></lucide-icon>
+      </p-button>
+      <p-button class="flex items-center justify-center h-full">
+        <lucide-icon [img]="layoutGridIcon" class="h-4 w-4"></lucide-icon>
+      </p-button>
     </div>
-  </header>
+  </section>
+</header>

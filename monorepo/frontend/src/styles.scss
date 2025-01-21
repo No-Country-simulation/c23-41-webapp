@@ -5,7 +5,7 @@
 
 html, body { 
     @apply bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] 
-       bg-white
+       bg-gray-100
        min-h-screen 
        relative 
        overflow-hidden;
