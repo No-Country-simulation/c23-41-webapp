@@ -1,0 +1,138 @@
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Enlaces */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Botones */
+  button {
+  background-color: #B9FF66; /* Fondo verde claro */
+  color: #000; /* Letras negras */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  }
+  
+  button:hover {
+    background-color: #B9FF66;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem; 
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+  }
+
+  /* Logo */
+header img {
+    height: 30px; /* Ajusta el tamaño del logo */
+  }
+  
+  /* Menú */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem; /* Espaciado entre los elementos del menú */
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #007BFF; /* Color de enlace al pasar el mouse */
+  }
+  
+  
+  /* Hero */
+  #hero {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'space-between'; 
+    padding: '2rem';
+    text-Align: 'left';
+    width: '100%';
+    
+  }
+  
+  /* Features */
+  #features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background-color: #eef;
+  }
+  
+  #features div {
+    flex: 1 1 calc(33.333% - 1rem); /* Tres columnas por fila */
+    margin: 0.5rem;
+    text-align: center;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    #features div {
+      flex: 1 1 calc(50% - 1rem); /* Dos columnas por fila */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #features div {
+      flex: 1 1 100%; /* Una columna por fila */
+    }
+  
+    header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    nav ul {
+      gap: 0.5rem;
+    }
+  }
+  
