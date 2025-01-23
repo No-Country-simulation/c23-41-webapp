@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { IconLogoComponent } from '../../../shared/components/icon-logo/icon-logo.component';
+import { NotificationsComponent } from '../notifications/notifications.component';
 
 
 interface HeaderItem {
@@ -19,7 +20,7 @@ interface HeaderItem {
 @Component({
   selector: 'app-vertical-header',
   standalone: true,
-  imports: [CommonModule, TooltipModule, ButtonModule, ToolbarModule, LucideAngularModule,  AutoCompleteModule, IconLogoComponent],
+  imports: [CommonModule, TooltipModule, ButtonModule, ToolbarModule, LucideAngularModule,  AutoCompleteModule, IconLogoComponent, NotificationsComponent],
   templateUrl: './vertical-header.component.html',
   styleUrl: './vertical-header.component.scss'
 })

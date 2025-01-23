@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
+import { LatestConnectionsComponent } from '../latest-connections/latest-connections.component';
 
 @Component({
   selector: 'app-right-sidebar',
   standalone: true,
-  imports: [CardModule, TagModule],
+  imports: [CardModule, TagModule, LatestConnectionsComponent],
   templateUrl: './right-sidebar.component.html',
   styleUrl: './right-sidebar.component.scss'
 })
