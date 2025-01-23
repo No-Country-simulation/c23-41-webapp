@@ -1,0 +1,93 @@
+<div class="space-y-6 py-8">
+    @for (post of posts; track $index) {
+        <p-card class="flex flex-col gap-4 overflow-hidden w-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <section class="p-6">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center">
+                    <img
+                        [src]="post.authorAvatar"
+                        alt="{{ post.author }}"
+                        class="w-10 h-10 rounded-full mr-2"
+                    />
+                    <div>
+                        <h3 class="text-lg font-bold">{{ post.title }}</h3>
+                        <p class="text-sm text-gray-500">
+                        By {{ post.author }} | {{ post.facultad }}
+                        </p>
+                    </div>
+                    </div>
+                    <p-badge
+                    [value]="post.status | titlecase"
+                    [styleClass]="
+                        post.status === 'suggested'
+                        ? 'bg-blue-500 text-white'
+                        : post.status === 'saved'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gray-500 text-white'
+                    "
+                    ></p-badge>
+                </div>
+                  <div class="mb-4">
+                    <img
+                      [src]="post.image"
+                      alt="{{ post.title }}"
+                      class="w-full h-48 object-cover rounded-md"
+                    />
+                  </div>
+                  <p class="text-gray-700 mb-4">
+                    {{ post.expanded ? post.description : (post.description | slice: 0:150) + '...' }}
+                  </p>
+                  @if (post.description.length > 150) {
+                    <button
+                    pButton
+                    type="button"
+                    label="{{ post.expanded ? 'Read Less' : 'Read More' }}"
+                    class="mb-4 p-button-link text-xs"
+                    (click)="toggleExpanded(post)"
+                  ></button>
+                  }
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    @for (skill of post.skills; track $index) {
+                        <p-tag
+                        [value]="skill"
+                        styleClass="bg-transparent border rounded-1xl text-xs font-light text-gray-700"
+                        ></p-tag>
+                    }
+                  </div>
+                  <div class="flex justify-between items-center mt-8">
+                    <div class="flex space-x-8">
+                      <button pButton type="button" class="text-gray-600 p-2 hover:bg-slate-100">
+                        <lucide-icon [img]="likeIcon" class="h-4 w-4 mr-2 text-gray-600"></lucide-icon>
+                        <span class="text-sm text-gray-600">{{ post.likes }}</span>
+                      </button>
+                      <button
+                        pButton
+                        type="button"
+                        class="text-gray-600 p-2 hover:bg-slate-100"
+                      >
+                      <lucide-icon [img]="messageIcon" class="h-4 w-4 mr-2 text-gray-600"></lucide-icon>
+                      <span class="text-sm text-gray-600">{{ post.comments }}</span>
+                    </button>
+                      <button pButton type="button" class="text-gray-600 p-2 hover:bg-slate-100">
+                        <lucide-icon [img]="shareIcon" class="h-4 w-4 mr-2 text-gray-600"></lucide-icon>
+                        <span class="text-sm text-gray-600">{{ post.shares }}</span>
+                      </button>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button
+                        pButton
+                        type="button"
+                        class="text-gray-600 p-2 hover:bg-slate-100"
+                        [ngClass]="post.status === 'saved' ? 'p-button-success' : 'p-button-secondary'"
+                      >
+                      <lucide-icon [img]="bookmarkIcon" class="h-4 w-4"></lucide-icon>
+                    </button>
+                      <button pButton type="button" class="text-gray-600 p-2 hover:bg-slate-100">
+                        <lucide-icon [img]="ellipsisIcon" class="h-4 w-4"></lucide-icon>
+                      </button>
+                    </div>
+                  </div>
+            </section>
+        </p-card>
+    }
+</div>

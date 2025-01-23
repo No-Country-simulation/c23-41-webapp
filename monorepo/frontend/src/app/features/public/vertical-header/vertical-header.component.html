@@ -1,0 +1,29 @@
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50 h-14">
+  <section class="h-full flex items-center justify-between container">
+    <div class="flex items-center space-x-4">
+      <a 
+        routerLink="/" 
+        class="text-xl font-bold text-black flex-shrink-0"
+      >
+        <app-icon-logo></app-icon-logo>
+      </a>
+      <span class="hidden md:block w-64">
+        <!--<p-autoComplete placeholder="Search skills..." styleClass="border w-full px-4 "/>-->
+      </span>
+    </div>
+    
+    <div class="flex items-center justify-center space-x-6">
+      <button
+        pButton
+        label="New Post"
+        class="bg-secondary text-black hover:bg-[#a7e65c] h-8 text-sm px-4"
+      >
+      <lucide-icon [img]="plusIcon" class="h-4 w-4 mr-2"></lucide-icon>
+    </button>
+      <app-notifications></app-notifications>
+      <p-button class="flex items-center justify-center h-full">
+        <lucide-icon [img]="layoutGridIcon" class="h-4 w-4"></lucide-icon>
+      </p-button>
+    </div>
+  </section>
+</header>
