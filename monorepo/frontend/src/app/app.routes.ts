@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'container', pathMatch: 'full' },
+    { path: '**', redirectTo: 'container' },
     {
         path: '',
         redirectTo: 'container',
