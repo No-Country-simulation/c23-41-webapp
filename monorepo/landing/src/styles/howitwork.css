@@ -1,0 +1,64 @@
+/* Estilos generales para la sección */
+#howitwork {
+    padding: 2rem;
+    background-color: #eef;
+  }
+  
+  #howitwork h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  /* Contenedor de los acordeones */
+  #howitwork .accordion-container {
+    margin-top: 2rem;
+  }
+  
+  /* Cada acordeón */
+  #howitwork .accordion {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden; /* Evita contenido fuera del contenedor */
+    transition: background-color 0.3s ease; /* Transición suave del color */
+    background-color: #f5f5f5; /* Fondo por defecto */
+  }
+  
+  /* Cambia el fondo completo a rojo si está abierto */
+  #howitwork .accordion.open {
+    background-color: #B9FF66; /* Fondo rojo claro */
+  }
+  
+  /* Encabezado del acordeón */
+  #howitwork .accordion-header {
+    cursor: pointer;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #howitwork .accordion-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  /* Números de los pasos */
+  #howitwork .accordion-header span {
+    font-size: 2rem; /* Números más grandes */
+    font-weight: bold;
+    color: #666;
+    
+  }
+  
+  /* Contenido del acordeón */
+  #howitwork .accordion-content {
+    padding: 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 1rem;
+    color: #666;
+  }
+  

@@ -1,0 +1,102 @@
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid black; /* Borde negro */
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; /* Necesario para el posicionamiento del botón */
+    min-height: 250px; /* Asegura que las tarjetas sean más altas */
+  }
+  
+  .card-content {
+    display: flex;
+    align-items: center; /* Centra verticalmente imagen y texto */
+    gap: 1rem; /* Espacio entre la imagen y el texto */
+  }
+  
+  .card-image {
+    width: 100px; /* Tamaño de la imagen */
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .card p {
+    margin: 0;
+    color: #666;
+    font-size: 1rem; /* Ajusta el tamaño de la fuente */
+  }
+  
+  /* Botón */
+  .card-button {
+    position: absolute; /* Necesario para usar el pseudo-elemento */
+    bottom: 1rem; /* Alinea al fondo */
+    left: 1rem; /* Alinea a la izquierda */
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    outline: none; /* Quita el borde de enfoque predeterminado */
+    width: 30%; /* El ancho base del botón */
+    max-width: 150px; /* Asegura que el botón no sea demasiado grande */
+    margin-top: 1rem; /* Espaciado adicional entre el botón y el contenido */
+  }
+  
+  /* Imagen dentro del botón */
+  .card-button img.button-image {
+    width: 150px; /* Ajusta al tamaño de la imagen */
+    height: auto;
+    transition: transform 0.2s ease; /* Animación en hover */
+  }
+  
+  /* Efecto hover */
+  .card-button:hover::before {
+    content: ''; /* Pseudo-elemento vacío */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Cubre todo el botón */
+    height: 100%; /* Se adapta al tamaño de la imagen */
+    border-radius: 5px; /* Igual al borde de la imagen */
+  }
+  
+  /* Efecto hover en la imagen */
+  .card-button img.button-image:hover {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño de la imagen */
+  }
+  
+  #features {
+    padding: 2rem;
+    background-color: #eef;
+  }
+  
+  #features h3 {
+    text-align: center;
+    margin-bottom: 3rem; /* Espacio adicional debajo del título */
+    font-size: 2rem;    /* Tamaño más grande para destacarlo */
+    color: #333;
+  }
+  
+  #features .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1rem;
+    margin-top: 5rem;
+  }
+  
+  /* Botón con fondo transparente */
+  #features .card img.card-image {
+    margin-left: 1rem; /* Espaciado entre la imagen y el borde izquierdo */
+  }
+  
+  /* Responsividad */
+  @media (max-width: 768px) {
+    #features .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  
