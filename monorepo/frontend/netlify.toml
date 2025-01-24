@@ -1,12 +1,9 @@
 [build]
-    command = "ng build"
+    base = "monorepo/frontend"
+    command = "npm run build:prod"
     publish = "dist/browser"
 
     [[redirects]]
     from = "/*"
     to = "/index.html"
     status = 200
-    [[headers]]
-    for = "/*"
-    [headers.values]
-    X-Prerender-Status = "true"

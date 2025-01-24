@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/authenticate",
+    "/authenticate/login",
+    "/authenticate/register",
+    "/container",
+    "/container/feed"
+  ]
+}
