@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NavigateController } from '../../../../shared/controllers/navigate.controller';
 import { AnimationHandler } from '../../../../shared/animations/animation-handler';
 import { IconLogoComponent } from '../../../../shared/components/icon-logo/icon-logo.component';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ import { IconLogoComponent } from '../../../../shared/components/icon-logo/icon-
 })
 export class LoginComponent {
   readonly navigateController = inject(NavigateController);
+  readonly authService = inject(AuthService);
   readonly BookOpen = BookOpen;
   public isLoading = false;
 
@@ -30,6 +32,19 @@ export class LoginComponent {
     this.navigateController.navigateToRegisterFromAuthOutlet();
   }
   onSubmit() {
-    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.toMakeLogin(this.loginForm.value.email as string, this.loginForm.value.password as string);
+  }
+
+  toMakeLogin(username: string, password: string): void {
+    setTimeout(() => {
+      if (this.authService.login(username, password)) {
+        this.navigateController.navigateToFeedFromPrincipalOutlet();
+      } else {
+        console.log('Login failed');
+      }
+    }, 500);
   }
 }

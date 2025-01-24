@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'container', pathMatch: 'full' },
-    { path: '**', redirectTo: 'container' },
     {
         path: '',
         redirectTo: 'container',
@@ -16,15 +14,20 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'feed',
-                pathMatch: 'full',
-                outlet: 'principal'
-            },
-            {
-                path: 'feed',
-                loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent),
-                outlet: 'principal'
-            },
+                children: [
+                    {
+                        path: '',
+                        outlet: 'principal',
+                        redirectTo: 'feed',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'feed',
+                        outlet: 'principal',
+                        loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent)
+                    }
+                ]
+            }
         ]
     },
     {
@@ -33,20 +36,29 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'login',
-                pathMatch: 'full',
-                outlet: 'auth'
-            },
-            {
-                path: 'login',
-                loadComponent: () => import('./features/public/auth/login/login.component').then(m => m.LoginComponent),
-                outlet: 'auth'
-            },
-            {
-                path: 'register',
-                loadComponent: () => import('./features/public/auth/register/register.component').then(m => m.RegisterComponent),
-                outlet: 'auth'
-            },
+                children: [
+                    {
+                        path: '',
+                        outlet: 'auth',
+                        redirectTo: 'login',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'login',
+                        outlet: 'auth',
+                        loadComponent: () => import('./features/public/auth/login/login.component').then(m => m.LoginComponent)
+                    },
+                    {
+                        path: 'register',
+                        outlet: 'auth',
+                        loadComponent: () => import('./features/public/auth/register/register.component').then(m => m.RegisterComponent)
+                    }
+                ]
+            }
         ]
     },
+    { 
+        path: '**', 
+        redirectTo: 'container' 
+    }
 ];

@@ -40,7 +40,6 @@ export class AuthService {
       const token = this.generateAuthToken(username);
       sessionStorage.setItem(this.AUTH_TOKEN_KEY, token);
       this.isAuthenticatedSignal.set(true);
-      this._router.navigate(['container', { outlets: { principal: ['discover'] } }]);
       return true;
     }
     return false;
