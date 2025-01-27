@@ -2,31 +2,21 @@ name: Deploy Frontend
 
 on:
   push:
-    paths:
-      - 'monorepo/frontend/**'
+    branches:
+      - test
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Install Nixpacks
+        run: |
+          curl -fsSL https://nixpacks.com/install.sh | sh
 
-    - name: Build Angular SSR
-      run: |
-        cd monorepo/frontend
-        npm install
-        npm run build:ssr
-
-    - name: Docker Build and Push
-      uses: docker/build-push-action@v4
-      with:
-        context: ./monorepo/frontend
-        push: true
-        tags: ghcr.io/no-country-simulation/frontend:latest
+      - name: Build and Deploy
+        run: |
+          nixpacks build . --name skillio-frontend
