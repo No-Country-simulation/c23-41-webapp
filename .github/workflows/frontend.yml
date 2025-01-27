@@ -20,4 +20,4 @@ jobs:
 
       - name: Build and Deploy
         run: |
-          nixpacks build . --name skillio-frontend
+          nixpacks build ./monorepo/frontend --name skillio-frontend
