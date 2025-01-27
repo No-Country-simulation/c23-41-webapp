@@ -14,19 +14,14 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                children: [
-                    {
-                        path: '',
-                        outlet: 'principal',
-                        redirectTo: 'feed',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'feed',
-                        outlet: 'principal',
-                        loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent)
-                    }
-                ]
+                outlet: 'principal',
+                redirectTo: 'feed',
+                pathMatch: 'full'
+            },
+            {
+                path: 'feed',
+                outlet: 'principal',
+                loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent)
             }
         ]
     },
@@ -36,25 +31,19 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                children: [
-                    {
-                        path: '',
-                        outlet: 'auth',
-                        redirectTo: 'login',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'login',
-                        outlet: 'auth',
-                        loadComponent: () => import('./features/public/auth/login/login.component').then(m => m.LoginComponent)
-                    },
-                    {
-                        path: 'register',
-                        outlet: 'auth',
-                        loadComponent: () => import('./features/public/auth/register/register.component').then(m => m.RegisterComponent)
-                    }
-                ]
-            }
+                pathMatch: 'full',
+                redirectTo: '',
+            },
+            {
+                path: 'login',
+                outlet: 'auth',
+                loadComponent: () => import('./features/public/auth/login/login.component').then(m => m.LoginComponent)
+            },
+            {
+                path: 'register',
+                outlet: 'auth',
+                loadComponent: () => import('./features/public/auth/register/register.component').then(m => m.RegisterComponent)
+            },
         ]
     },
     { 
