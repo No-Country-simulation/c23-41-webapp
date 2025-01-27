@@ -13,9 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Instala Nixpacks usando npm
       - name: Install Nixpacks
-        run: |
-          curl -fsSL https://nixpacks.com/install.sh | sh
+        run: npm install -g @railway/nixpacks
 
       - name: Build and Deploy
         run: |
