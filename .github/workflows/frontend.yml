@@ -15,7 +15,8 @@ jobs:
 
       # Instala Nixpacks usando npm
       - name: Install Nixpacks
-        run: npm install -g @railway/nixpacks
+        run: |
+          curl -sSL https://nixpacks.com/install.sh | bash
 
       - name: Build and Deploy
         run: |
