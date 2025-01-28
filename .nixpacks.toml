@@ -1,5 +1,17 @@
-[phases]
-install = "cd monorepo/frontend && npm install"
-build = "cd monorepo/frontend && npm run build:prod"
+[phases.setup]
+nixPkgs = ["nodejs-18_x", "nodejs", "npm"]
+
+[phases.install]
+cmds = [
+    "cd monorepo/frontend",
+    "npm ci"
+]
+
+[phases.build]
+cmds = [
+    "cd monorepo/frontend",
+    "npm run build:prod"
+]
+
 [start]
-cmd = "cd monorepo/frontend && npm run serve:ssr"
+cmd = "cd monorepo/frontend && node dist/frontend/server/server.mjs"
