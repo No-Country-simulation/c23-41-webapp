@@ -1,6 +1,5 @@
 [phases]
 install = "cd monorepo/frontend && npm install"
 build = "cd monorepo/frontend && npm run build:prod"
-
 [start]
-cmd = "cd monorepo/frontend && npm start"
+cmd = "cd monorepo/frontend && npm run serve:ssr"
