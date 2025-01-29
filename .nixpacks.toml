@@ -4,7 +4,7 @@ nixPkgs = ["nodejs-18_x"]
 [phases.install]
 cmds = [
     "cd monorepo/frontend",
-    "npm ci"
+    "npm install"
 ]
 
 [phases.build]
