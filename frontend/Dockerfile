@@ -1,29 +1,25 @@
-# Usa una imagen optimizada para Node.js
 FROM node:20 AS build
 
-# Define el directorio de trabajo
 WORKDIR /app
 
-# Copia solo los archivos necesarios para instalar dependencias desde la raíz del monorepo
-COPY ./frontend/package.json ./frontend/package-lock.json ./
+# Copy package files directly since we're already in the frontend context
+COPY package*.json ./
 
-# Instala dependencias sin generar archivos innecesarios
+# Install dependencies
 RUN npm install --production
 
-# Copia el resto del código desde la raíz del monorepo
-COPY ./frontend ./frontend
+# Copy the rest of the frontend files
+COPY . .
 
-# Construye la aplicación
+# Build the application
 RUN npm run build:prod
 
-# Usa una imagen más ligera para servir la app
+# Second stage
 FROM nginx:stable-alpine
 
-# Copia los archivos generados al servidor Nginx desde el build
-COPY --from=build /app/frontend/dist /usr/share/nginx/html
+# Copy the built files to nginx
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expone el puerto 80
 EXPOSE 80
 
-# Comando para iniciar Nginx
 CMD ["nginx", "-g", "daemon off;"]
