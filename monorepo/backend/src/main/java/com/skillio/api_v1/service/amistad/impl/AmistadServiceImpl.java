@@ -29,7 +29,7 @@ public class AmistadServiceImpl implements AmistadService {
         List<Amistad> amistadList = amistadRepository.findAll();
         return amistadList.parallelStream()
                 .map(amistadMapper::amistadToAmistadDTO)
-                .sorted(Comparator.comparing(AmistadDTO::getFechaAmistad))
+                .sorted(Comparator.comparing(AmistadDTO::getFechaAmistad).reversed())
                 .collect(Collectors.toList());
     }
 

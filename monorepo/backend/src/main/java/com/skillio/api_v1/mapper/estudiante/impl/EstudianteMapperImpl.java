@@ -18,7 +18,7 @@ public class EstudianteMapperImpl implements EstudianteMapper {
     private PasswordEncoder passwordEncoder;
     @Override
     public Estudiante estudianteDTOtoEstudiante(EstudianteDTO estudianteDTO) {
-        Estudiante.EstudianteBuilder builder = Estudiante.estudianteBuilder()
+        Estudiante.EstudianteBuilder builder = Estudiante.builder()
                 .id(UUID.fromString(estudianteDTO.getId()))
                 .nombres(estudianteDTO.getNombres())
                 .apellidos(estudianteDTO.getApellidos())

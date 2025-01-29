@@ -27,7 +27,7 @@ public class EstudianteServiceImpl implements EstudianteService {
         List<Estudiante> estudianteList = estudianteRepository.findAll();
         return estudianteList.parallelStream()
                 .map(estudianteMapper::estudianteToEstudianteDTO)
-                .sorted(Comparator.comparing(EstudianteDTO::getApellidos))
+                .sorted(Comparator.comparing(EstudianteDTO::getFechaRegistro).reversed())
                 .collect(Collectors.toList());
     }
 

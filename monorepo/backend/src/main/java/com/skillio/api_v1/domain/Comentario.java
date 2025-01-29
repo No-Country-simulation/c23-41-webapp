@@ -23,8 +23,8 @@ public class Comentario {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id")
+    private Estudiante estudiante;
 
     @ManyToOne
     @JoinColumn(name = "publicacion_id", referencedColumnName = "id")
@@ -35,14 +35,4 @@ public class Comentario {
 
     private LocalDate fechaComentario;
 
-    @Override
-    public String toString() {
-        return "Comentario{" +
-                "id=" + id +
-                ", usuario=" + usuario.toString() +
-                ", publicacion=" + publicacion.toString() +
-                ", comentarioTexto='" + comentarioTexto + '\'' +
-                ", fechaComentario=" + fechaComentario.toString() +
-                '}';
-    }
 }

@@ -26,8 +26,8 @@ public class Publicacion {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id")
+    private Estudiante estudiante;
 
     @Column(length = 500, columnDefinition = "varchar(500)", updatable = true, nullable = false)
     private String content;
@@ -41,14 +41,4 @@ public class Publicacion {
     @OneToMany(mappedBy = "publicacion")
     private List<Comentario> comentarios = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "Publicacion{" +
-                "id=" + id +
-                ", usuario=" + usuario +
-                ", content='" + content + '\'' +
-                ", fechaPublicacion=" + fechaPublicacion.toString() +
-                ", visibilidad=" + visibilidad.toString() +
-                '}';
-    }
 }
