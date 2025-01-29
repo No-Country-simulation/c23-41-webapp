@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install ALL dependencies (including devDependencies) needed for building
+# Install ALL dependencies
 RUN npm install
 
 # Install Angular CLI globally
@@ -23,8 +23,8 @@ FROM nginx:stable-alpine
 # Copy custom nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy the built files to nginx
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+# Using the correct dist path that matches your angular.json
+COPY --from=build /app/dist/browser /usr/share/nginx/html
 
 EXPOSE 80
 
