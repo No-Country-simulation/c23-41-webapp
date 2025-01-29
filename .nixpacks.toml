@@ -4,7 +4,7 @@ dir = "monorepo/frontend"
 
 [phases.install]
 cmds = [
-  "cd monorepo/frontend"
+  "cd monorepo/frontend",
   "pwd", 
   "ls -la", 
   "npm install"
