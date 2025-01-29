@@ -4,20 +4,22 @@ on:
   push:
     branches:
       - test
+      - main
+    paths:
+      - 'frontend/**'  # Solo ejecuta el workflow si hay cambios en frontend/
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Instala Nixpacks usando npm
-      - name: Install Nixpacks
+      - name: Log in to Railway
         run: |
-          curl -sSL https://nixpacks.com/install.sh | bash
+          railway login --token ${{ secrets.RAILWAY_TOKEN }}
 
-      - name: Build and Deploy
+      - name: Deploy Frontend to Railway
         run: |
-          nixpacks build ./monorepo/frontend --name skillio-frontend
+          railway up --service skillio-frontend --detached
