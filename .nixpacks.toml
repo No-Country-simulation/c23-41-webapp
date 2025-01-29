@@ -1,12 +1,9 @@
 [phases.setup]
-nixPkgs = ["nodejs-18_x"]
+nixPkgs = ["nodejs-18_x", "docker"]
 cmds = ["cd monorepo/frontend"]
 
-[phases.install]
-cmds = ["npm install"]
-
 [phases.build]
-cmds = ["npm run build:prod"]
+cmds = ["docker build -t skillio ."]
 
 [start]
-cmd = "node dist/frontend/server/server.mjs"
+cmd = "docker run -p 4000:4000 skillio"
