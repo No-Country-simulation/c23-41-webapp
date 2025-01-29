@@ -6,7 +6,7 @@ on:
       - test
       - main
     paths:
-      - 'frontend/**'  # Solo ejecuta el workflow si hay cambios en frontend/
+      - 'frontend/**'  
 
 jobs:
   build-and-deploy:
@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Build Docker image for Frontend
+        run: |
+          docker build -t mi-app -f frontend/Dockerfile frontend/
 
       - name: Log in to Railway
         run: |
