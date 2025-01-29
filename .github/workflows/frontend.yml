@@ -18,7 +18,7 @@ jobs:
 
       - name: Build Docker image for Frontend
         run: |
-          docker build -t mi-app -f frontend/Dockerfile frontend/
+          docker build -t skillio-frontend -f frontend/Dockerfile .
 
       - name: Log in to Railway
         run: |
