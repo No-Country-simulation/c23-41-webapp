@@ -5,17 +5,17 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install ALL dependencies
+# Install dependencies
 RUN npm install
 
 # Install Angular CLI globally
 RUN npm install -g @angular/cli
 
-# Copy the rest of the frontend files
+# Copy the entire application
 COPY . .
 
-# Build the application and verify the output
-RUN npm run build:prod && ls -la dist/
+# Build the application for production with SSR
+RUN npm run build:prod
 
 # Second stage
 FROM nginx:stable-alpine
@@ -26,13 +26,13 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Copy custom nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy the built files to nginx
-COPY --from=build /app/dist/browser/* /usr/share/nginx/html/
+# Copy the built files - adjusted for your dist/ output
+COPY --from=build /app/dist/* /usr/share/nginx/html/
 
 # Create directory for logs
 RUN mkdir -p /var/log/nginx
 
-# Debug commands - MOVED HERE after files are copied
+# Debug commands to verify content
 RUN ls -la /usr/share/nginx/html/
 RUN cat /etc/nginx/nginx.conf
 
