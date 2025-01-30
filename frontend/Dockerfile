@@ -3,17 +3,17 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
-# Copy package files from the frontend directory
-COPY frontend/package*.json ./
+# Copy package files from the current directory (frontend)
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the frontend directory contents
-COPY frontend/ .
-
 # Install Angular CLI globally
 RUN npm install -g @angular/cli@latest
+
+# Copy all files from the current directory (frontend)
+COPY . .
 
 # Build the Angular SSR application
 RUN npm run build:prod
