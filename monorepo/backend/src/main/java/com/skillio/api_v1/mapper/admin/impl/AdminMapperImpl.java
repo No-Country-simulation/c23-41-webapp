@@ -17,8 +17,7 @@ public class AdminMapperImpl implements AdminMapper {
     @Override
     public Admin adminDTOtoAdmin(AdminDTO adminDTO) {
         Admin.AdminBuilder builder = Admin.builder()
-                .nombres(adminDTO.getNombres())
-                .apellidos(adminDTO.getApellidos())
+                .nombreCompleto(adminDTO.getNombreCompleto())
                 .email(adminDTO.getEmail())
                 .password(passwordEncoder.encode(adminDTO.getPassword()));
 
@@ -29,8 +28,7 @@ public class AdminMapperImpl implements AdminMapper {
     public AdminDTO adminToAdminDTO(Admin admin) {
         AdminDTO.AdminDTOBuilder builder = AdminDTO.builder()
                 .id(admin.getId().toString())
-                .nombres(admin.getNombres())
-                .apellidos(admin.getApellidos())
+                .nombreCompleto(admin.getNombreCompleto())
                 .email(admin.getEmail());
 
         return builder.build();

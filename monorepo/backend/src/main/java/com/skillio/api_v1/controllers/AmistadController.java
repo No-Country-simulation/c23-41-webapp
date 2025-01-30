@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class AmistadController {
     private AmistadService amistadService;
 
     @GetMapping("/")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public List<AmistadDTO> getAmistades(){
         log.info("Muestra todas las amistades");
         return amistadService.getAmistades();
     }
 
     @GetMapping("/{idAmistad}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public AmistadDTO getAmistadPorId(@PathVariable(name = "idAmistad") UUID idAmistad)
             throws NotFoundException {
         log.info("Buscar amistad por Id");
@@ -37,6 +40,7 @@ public class AmistadController {
     }
 
     @PostMapping(path = "/nuevaAmistad")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> crearAmistad(@RequestBody AmistadDTO amistadDTO){
         log.info("Creando una nueva amistad");
         Amistad amistadCreada = amistadService.crearAmistad(amistadDTO);
@@ -48,6 +52,7 @@ public class AmistadController {
     }
 
     @PutMapping("/{idAmistad}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarAmistad(@PathVariable(name = "idAmistad") UUID idAmistad,
                                                 @RequestBody AmistadDTO amistadDTO) throws NotFoundException {
         Optional<AmistadDTO> amistadDTOOptional = amistadService
@@ -62,6 +67,7 @@ public class AmistadController {
     }
 
     @DeleteMapping("/{idAmistad}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> eliminarAmistad(@PathVariable(name = "idAmistad") UUID idAmistad)
             throws NotFoundException {
         boolean isAmistadEliminada = amistadService.eliminarAmistad(idAmistad);

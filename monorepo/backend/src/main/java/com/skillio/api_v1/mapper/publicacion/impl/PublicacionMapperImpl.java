@@ -25,7 +25,8 @@ public class PublicacionMapperImpl implements PublicacionMapper {
                 .id(UUID.randomUUID())
                 .content(publicacionDTO.getContenido())
                 .fechaPublicacion(getLocalDate(publicacionDTO.getFechaPublicacion()))
-                .visibilidad(Visibilidad.valueOf(publicacionDTO.getVisibilidad()));
+                .visibilidad(Visibilidad.valueOf(publicacionDTO.getVisibilidad()))
+                .palabrasClave(publicacionDTO.getPalabrasClave());
 
         if(estudianteRepository.findById(UUID.fromString(publicacionDTO.getUsuarioId())).isPresent()){
             builder.estudiante(estudianteRepository.findById(UUID.fromString(publicacionDTO.getUsuarioId())).get());
@@ -42,7 +43,8 @@ public class PublicacionMapperImpl implements PublicacionMapper {
                 .usuarioId(publicacion.getEstudiante().getId().toString())
                 .contenido(publicacion.getContent())
                 .fechaPublicacion(getLocalDate(publicacion.getFechaPublicacion()))
-                .visibilidad(publicacion.getVisibilidad().toString());
+                .visibilidad(publicacion.getVisibilidad().toString())
+                .palabrasClave(publicacion.getPalabrasClave());
 
         return builder.build();
     }

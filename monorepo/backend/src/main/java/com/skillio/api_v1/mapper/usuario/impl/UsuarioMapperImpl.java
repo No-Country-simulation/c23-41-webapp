@@ -19,16 +19,19 @@ public class UsuarioMapperImpl implements UsuarioMapper {
     public Usuario usuarioDTOtoUsuario(UsuarioDTO usuarioDTO) {
         Usuario.UsuarioBuilder builder = Usuario.builder()
                 .id(UUID.randomUUID())
-                .nombres(usuarioDTO.getNombres())
-                .apellidos(usuarioDTO.getApellidos())
+                .nombreCompleto(usuarioDTO.getNombreCompleto())
                 .email(usuarioDTO.getEmail())
                 .password(passwordEncoder.encode(usuarioDTO.getPassword()));
-        return null;
+        return builder.build();
     }
 
     @Override
     public UsuarioDTO usuarioToUsuarioDTO(Usuario usuario) {
-
-        return null;
+        UsuarioDTO.UsuarioDTOBuilder builder = UsuarioDTO.builder()
+                .id(String.valueOf(usuario.getId()))
+                .nombreCompleto(usuario.getNombreCompleto())
+                .email(usuario.getEmail())
+                .role(String.valueOf(usuario.getRole()));
+        return builder.build();
     }
 }

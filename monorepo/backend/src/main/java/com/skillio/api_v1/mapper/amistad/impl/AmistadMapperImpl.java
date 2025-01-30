@@ -21,7 +21,8 @@ public class AmistadMapperImpl implements AmistadMapper {
     @Override
     public Amistad amistadDTOtoAmistad(AmistadDTO amistadDTO) {
         Amistad.AmistadBuilder builder = Amistad.builder()
-                .fechaAmistad(getLocalDate(amistadDTO.getFechaAmistad()))
+                .id(UUID.randomUUID())
+                .fechaAmistad(LocalDate.now())
                 .estadoAmistad(EstadoAmistad.valueOf(amistadDTO.getEstadoAmistad()));
 
         if (usuarioRepository.findById(UUID.fromString(amistadDTO.getUsuarioId1())).isPresent()){

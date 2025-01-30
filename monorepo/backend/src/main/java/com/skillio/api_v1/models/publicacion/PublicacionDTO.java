@@ -2,6 +2,8 @@ package com.skillio.api_v1.models.publicacion;
 
 import lombok.*;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -13,4 +15,5 @@ public class PublicacionDTO {
     private String contenido;
     private String fechaPublicacion;
     private String visibilidad;
+    private List<String> palabrasClave;
 }

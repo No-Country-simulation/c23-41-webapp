@@ -11,8 +11,7 @@ import java.util.List;
 @Builder
 public class EstudianteDTO {
     private String id;
-    private String nombres;
-    private String apellidos;
+    private String nombreCompleto;
     private String email;
     private String password;
     private String telefono;
@@ -20,7 +19,10 @@ public class EstudianteDTO {
     private String fechaNacimiento;
     private String fechaRegistro;
     private String institucion;
+    private String pais;
+    private String ciudad;
     private String educacion;
     private List<String> preferencias;
+    private List<String> habilidades;
     private String role;
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class ComentarioController {
     private final ComentarioService comentarioService;
 
     @GetMapping("/")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public List<ComentarioDTO> getComentarios(){
         log.info("Muestra todos los comentarios");
         return comentarioService.getComentarios();
     }
 
     @GetMapping("/{idComentario}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ComentarioDTO getComentarioPorId(@PathVariable(name = "idComentario") UUID idComentario)
             throws NotFoundException {
         log.info("Buscar comentario por Id");
@@ -37,6 +40,7 @@ public class ComentarioController {
     }
 
     @PostMapping(path = "/nuevoComentario")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> crearComentario(@RequestBody ComentarioDTO comentarioDTO){
         log.info("Creando un nuevo comentario");
         Comentario comentarioCreado = comentarioService.crearComentario(comentarioDTO);
@@ -48,6 +52,7 @@ public class ComentarioController {
     }
 
     @PutMapping("/{idComentario}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarComentario(@PathVariable(name = "idComentario") UUID idComentario,
                                                      @RequestBody ComentarioDTO comentarioDTO) throws NotFoundException {
         Optional<ComentarioDTO> comentarioDTOOptional = comentarioService
@@ -62,6 +67,7 @@ public class ComentarioController {
     }
 
     @DeleteMapping("/{idComentario}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> eliminarComentario(@PathVariable(name = "idComentario") UUID idComentario)
             throws NotFoundException {
         boolean isComentarioEliminado = comentarioService.eliminarComentario(idComentario);

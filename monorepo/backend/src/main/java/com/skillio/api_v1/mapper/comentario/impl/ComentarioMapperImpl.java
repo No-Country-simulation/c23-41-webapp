@@ -19,7 +19,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ComentarioMapperImpl implements ComentarioMapper {
 
-    private UsuarioRepository usuarioRepository;
     private PublicacionRepository publicacionRepository;
     private final EstudianteRepository estudianteRepository;
 

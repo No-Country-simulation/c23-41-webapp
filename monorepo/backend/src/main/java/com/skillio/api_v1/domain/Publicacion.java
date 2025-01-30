@@ -25,7 +25,7 @@ public class Publicacion {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "estudiante_id", referencedColumnName = "id")
     private Estudiante estudiante;
 
@@ -40,5 +40,7 @@ public class Publicacion {
 
     @OneToMany(mappedBy = "publicacion")
     private List<Comentario> comentarios = new ArrayList<>();
+
+    private List<String> palabrasClave = new ArrayList<>();
 
 }

@@ -48,4 +48,7 @@ public class Estudiante extends  Usuario{
 
     private List<String> preferencias;
 
+    @Builder.Default
+    private Role role = Role.USUARIO;
+
 }

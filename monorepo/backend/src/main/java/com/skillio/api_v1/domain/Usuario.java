@@ -26,10 +26,7 @@ public class Usuario {
     private UUID id;
 
     @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
-    private String nombres;
-
-    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
-    private String apellidos;
+    private String nombreCompleto;
 
     @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
     private String email;
@@ -40,13 +37,4 @@ public class Usuario {
     @Transient
     private Role role;
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nombres='" + nombres + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

@@ -50,7 +50,7 @@ public class SecurityConfig {
 
         return httpSecurity
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers(HttpMethod.POST, "/admin/nuevoAdmin").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/estudiante/nuevoEstudiante").permitAll()
                         .anyRequest().authenticated()
                 )
                 .cors(cors -> cors.configurationSource(request -> {

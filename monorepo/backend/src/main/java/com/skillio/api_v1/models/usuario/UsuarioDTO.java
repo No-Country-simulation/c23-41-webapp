@@ -9,8 +9,7 @@ import lombok.*;
 @Builder
 public class UsuarioDTO {
     private String id;
-    private String nombres;
-    private String apellidos;
+    private String nombreCompleto;
     private String email;
     private String password;
     private String role;
