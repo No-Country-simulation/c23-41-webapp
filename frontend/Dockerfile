@@ -8,34 +8,25 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli
+# Install Angular CLI y Typescript globalmente
+RUN npm install -g @angular/cli typescript
 
-# Copy the entire application
+# Copy the entire project
 COPY . .
 
-# Build the application
-RUN npm run build:prod
+# Build the Angular SSR project
+RUN npm run build:ssr
 
-# Second stage
-FROM nginx:stable-alpine
+# Second stage para producción
+FROM node:20-alpine
 
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the built Angular SSR project
+COPY --from=build /app/dist /app/dist
 
-# Copy the built files from the browser directory specifically
-COPY --from=build /app/dist/browser/* /usr/share/nginx/html/
+# Expose port 4000 for the SSR server
+EXPOSE 4000
 
-# Create directory for logs
-RUN mkdir -p /var/log/nginx
-
-# Debug commands
-RUN echo "=== Nginx HTML Content ===" && \
-    ls -la /usr/share/nginx/html/
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Run the Node.js server
+CMD ["node", "dist/server/main.js"]
