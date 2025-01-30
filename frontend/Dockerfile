@@ -15,7 +15,7 @@ RUN npm install -g @angular/cli typescript
 COPY . .
 
 # Build the Angular SSR project
-RUN npm run build:ssr
+RUN npm run build:prod
 
 # Second stage para producción
 FROM node:20-alpine
