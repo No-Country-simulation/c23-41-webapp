@@ -1,27 +1,12 @@
 [build]
   base = "frontend"
-  command = "npm run build:ssr"
+  command = "npm run build:prod"
   publish = "dist/browser"
 
 [build.environment]
   NODE_VERSION = "20.0.0"
-  NPM_FLAGS = "--version"
-
-[[plugins]]
-  package = "@netlify/plugin-angular-universal"
-
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/server"
-  status = 200
-  force = true
-  conditions = {Role = ["ssr"]}
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[functions]
-  external_node_modules = ["@angular/platform-server"]
-  included_files = ["dist/browser/**/*", "dist/server/**/*"]
