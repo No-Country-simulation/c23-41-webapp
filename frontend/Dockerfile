@@ -34,4 +34,4 @@ RUN npm ci --only=production
 EXPOSE 4000
 
 # Start SSR server
-CMD ["node", "dist/server/main.mjs"]
+CMD ["node", "dist/server/server.mjs"]
