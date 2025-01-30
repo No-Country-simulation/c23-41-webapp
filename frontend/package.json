@@ -6,9 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration=production && ng build --configuration=production --server",
+    "build:ssr": "ng build --configuration production && ng run frontend:server:production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:frontend": "node dist/server/server.mjs"
+    "serve:ssr:frontend": "node dist/server/server.mjs",
+    "prerender": "ng run frontend:prerender"
   },
   "private": true,
   "dependencies": {

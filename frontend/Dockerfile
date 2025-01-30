@@ -3,7 +3,7 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
-# Copy package files from the current directory (frontend)
+# Copy package files
 COPY package*.json ./
 
 # Install dependencies
@@ -12,26 +12,26 @@ RUN npm install
 # Install Angular CLI globally
 RUN npm install -g @angular/cli@latest
 
-# Copy all files from the current directory (frontend)
+# Copy the rest of the application
 COPY . .
 
 # Build the Angular SSR application
-RUN npm run build:prod
+RUN npm run build:ssr
 
 # Production stage
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy only the necessary files from builder
+# Copy built application
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 
-# Install only production dependencies
+# Install production dependencies only
 RUN npm ci --only=production
 
-# Expose the port your server will run on
+# Expose port
 EXPOSE 4000
 
-# Start the SSR server
-CMD ["node", "dist/server/server.mjs"]
+# Start SSR server
+CMD ["node", "dist/server/main.mjs"]
