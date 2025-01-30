@@ -8,16 +8,22 @@ import java.util.UUID;
 
 public class CustomUserDetails extends User {
     private final UUID uuid;
+    private final String nombreCompleto;
     // Puedes agregar otros campos que necesites
 
     public CustomUserDetails(String username, String password,
                              Collection<? extends GrantedAuthority> authorities,
-                             UUID uuid) {
+                             UUID uuid, String nombreCompleto) {
         super(username, password, authorities);
         this.uuid = uuid;
+        this.nombreCompleto = nombreCompleto;
     }
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public String getNombreCompleto(){
+        return nombreCompleto;
     }
 }

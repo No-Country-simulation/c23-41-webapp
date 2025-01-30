@@ -3,6 +3,7 @@ package com.skillio.api_v1.config;
 import com.skillio.api_v1.config.filters.JwtAuthenticationFilter;
 import com.skillio.api_v1.config.filters.JwtAuthorizationFilter;
 import com.skillio.api_v1.config.jwt.JwtUtils;
+import com.skillio.api_v1.service.userDetails.CustomUserDetailsService;
 import com.skillio.api_v1.service.userDetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,7 @@ public class SecurityConfig {
     private JwtUtils jwtUtils;
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    CustomUserDetailsService userDetailsService;
 
     @Autowired
     JwtAuthorizationFilter authorizationFilter;
