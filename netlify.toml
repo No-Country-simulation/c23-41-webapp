@@ -1,13 +1,13 @@
 [build]
   base = "frontend"
   command = "npm i && npm run build:prod"
-  publish = "dist/browser"
+  publish = "dist/frontend-skillio/browser"
 
 [build.environment]
-  NODE_VERSION = "20.0.0"
+  NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
   from = "/*"
-  to = "/index.csr.html"
+  to = "/index.html"
   status = 200
