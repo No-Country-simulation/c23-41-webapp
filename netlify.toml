@@ -1,12 +1,13 @@
 [build]
   base = "frontend"
-  command = "npm run build:prod"
+  command = "npm i && npm run build:ssr"
   publish = "dist/browser"
 
 [build.environment]
   NODE_VERSION = "20.0.0"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/index.csr.html"
   status = 200
