@@ -1,6 +1,6 @@
 [build]
   base = "frontend"
-  command = "npm i && npm run build:ssr"
+  command = "npm i && npm run build:prod"
   publish = "dist/browser"
 
 [build.environment]

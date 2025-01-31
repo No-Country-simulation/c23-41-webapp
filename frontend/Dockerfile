@@ -15,23 +15,19 @@ RUN npm install -g @angular/cli@latest
 # Copy the rest of the application
 COPY . .
 
-# Build the Angular SSR application
-RUN npm run build:ssr
+# Build the Angular application as static files
+RUN npm run build:prod
 
 # Production stage
-FROM node:20-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-# Copy built application
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-
-# Install production dependencies only
-RUN npm ci --only=production
+# Copy the built static files
+COPY --from=builder /app/dist/browser .
 
 # Expose port
-EXPOSE 4000
+EXPOSE 80
 
-# Start SSR server
-CMD ["node", "dist/server/server.mjs"]
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
