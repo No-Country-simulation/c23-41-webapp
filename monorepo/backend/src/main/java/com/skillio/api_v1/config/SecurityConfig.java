@@ -4,8 +4,6 @@ import com.skillio.api_v1.config.filters.JwtAuthenticationFilter;
 import com.skillio.api_v1.config.filters.JwtAuthorizationFilter;
 import com.skillio.api_v1.config.jwt.JwtUtils;
 import com.skillio.api_v1.service.userDetails.CustomUserDetailsService;
-import com.skillio.api_v1.service.userDetails.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,14 +27,20 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    JwtAuthorizationFilter authorizationFilter;
+    private final JwtAuthorizationFilter jwtAuthorizationFilter;
+
+    public SecurityConfig(JwtUtils jwtUtils,
+                          CustomUserDetailsService userDetailsService,
+                          JwtAuthorizationFilter jwtAuthorizationFilter) {
+        this.jwtUtils = jwtUtils;
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthorizationFilter = jwtAuthorizationFilter;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -68,7 +72,7 @@ public class SecurityConfig {
                 )
 ////                .httpBasic()
                 .addFilter(jwtAuthenticationFilter)
-                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

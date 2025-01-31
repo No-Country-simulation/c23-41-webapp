@@ -3,8 +3,6 @@ package com.skillio.api_v1.service.userDetails;
 import com.skillio.api_v1.domain.CustomUserDetails;
 import com.skillio.api_v1.domain.Usuario;
 import com.skillio.api_v1.repository.usuario.UsuarioRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,10 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
-@AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    public CustomUserDetailsService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
