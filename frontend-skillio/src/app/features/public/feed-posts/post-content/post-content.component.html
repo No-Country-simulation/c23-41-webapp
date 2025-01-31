@@ -1,0 +1,26 @@
+<div class="space-y-6">
+    <div>
+      <h2 class="text-xl sm:text-3xl font-bold text-gray-900 mb-3 tracking-tight leading-tight">
+        {{title()}}
+      </h2>
+      <p class="text-gray-600 leading-relaxed">{{content()}}</p>
+    </div>
+  
+    <div class="flex flex-wrap gap-2">
+      @for (tag of tags(); track tag) {
+        <p-badge [value]="tag" 
+                 styleClass="bg-gray-50 hover:bg-gray-100 text-gray-700 transition-colors px-3">
+        </p-badge>
+      }
+    </div>
+  
+    <button pButton 
+            label="Connect with {{authorName()}}"
+            iconPos="right"
+            class="w-full bg-black text-white hover:bg-black/90 transition-all py-3 text-sm font-medium rounded-lg group">
+            <lucide-icon 
+              [img]="externalLink" 
+              class="h-3.5 w-3.5 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+            </lucide-icon>
+    </button>
+  </div>
