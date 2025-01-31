@@ -1,0 +1,25 @@
+<div class="space-y-6 py-8 w-full">
+  <p-card styleClass="shadow-lg rounded-2xl overflow-hidden">
+    <div class="relative aspect-video">
+      <img [src]="post().featuredImage" 
+           [alt]="post().title"
+           class="object-cover w-full h-full" />
+    </div>
+
+    <div class="p-6 sm:p-8">
+      <app-post-header 
+        [author]="post().author"
+        [readTime]="post().readTime">
+      </app-post-header>
+
+      <app-post-content
+        [title]="post().title"
+        [content]="post().content"
+        [tags]="post().tags"
+        [authorName]="post().author.name">
+      </app-post-content>
+
+      <app-post-engagement-section></app-post-engagement-section>
+    </div>
+  </p-card>
+</div>

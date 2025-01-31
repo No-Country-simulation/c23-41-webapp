@@ -1,0 +1,29 @@
+<div class="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+    <div class="flex items-center gap-6">
+      <button pButton [class]="getLikeButtonClass()" 
+              (click)="engagementService.toggleLike()"
+              size="small"
+              [pTooltip]="state().isLiked ? 'Unlike' : 'Like'">
+        <lucide-icon [img]="like" class="h-4 w-4 mr-2"></lucide-icon>
+        <span>{{state().likeCount}}</span>
+      </button>
+
+      <button pButton class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+              pTooltip="View comments">
+        <lucide-icon [img]="messageSquare" class="h-4 w-4 mr-2"></lucide-icon>
+        <span>37</span>
+      </button>
+
+      <button pButton class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+              pTooltip="Share">
+        <lucide-icon [img]="share2" class="h-4 w-4 mr-2"></lucide-icon>
+        <span>18</span>
+      </button>
+    </div>
+
+    <button pButton [class]="getBookmarkButtonClass()"
+            (click)="engagementService.toggleBookmark()"
+            [pTooltip]="state().isBookmarked ? 'Remove bookmark' : 'Bookmark'">
+            <lucide-icon [img]="bookmark" class="h-4 w-4"></lucide-icon>
+    </button>
+  </div>
