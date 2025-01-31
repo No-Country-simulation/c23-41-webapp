@@ -21,6 +21,9 @@ RUN npm run build:prod
 # Production stage
 FROM nginx:alpine
 
+# Copy nginx configuration if you have custom settings
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 WORKDIR /usr/share/nginx/html
 
 # Copy the built static files
