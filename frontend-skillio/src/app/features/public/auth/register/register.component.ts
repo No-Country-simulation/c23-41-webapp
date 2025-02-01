@@ -30,7 +30,8 @@ export class RegisterComponent {
   readonly skills = SKILLS;
 
   appName = APP_NAME;
-  navigateController = inject(NavigateController)
+  navigateController = inject(NavigateController);
+  authService = inject(AuthService);
   submitted = false;
   isLoading = false;
 
@@ -53,9 +54,16 @@ export class RegisterComponent {
   navigateToLogin = () => {
     this.navigateController.navigateToLoginFromAuthOutlet();
   }
+
+  toMakeRegister(email: string, password: string) {
+    setTimeout(() => {
+      this.authService.register(email, password)
+    }, 500);
+  }
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
+      this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
       this.isLoading = true;
       // Simulate API call
       setTimeout(() => {

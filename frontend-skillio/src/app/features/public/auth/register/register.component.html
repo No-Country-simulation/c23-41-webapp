@@ -1,82 +1,111 @@
-<p-card class="w-full overflow-hidden border-0 p-0 m-0">
-  <ng-template pTemplate="content">
-    <section class="flex md:flex-row md:max-w-5xl w-full border bg-white rounded-lg overflow-hidden">
-      <div class="flex-1 p-8 space-y-6">
+<div class="min-h-screen w-full p-4 bg-gray-50 flex items-center justify-center">
+  <p-card class="w-full max-w-7xl shadow-lg border">
+    <section class="flex flex-col md:flex-row w-full overflow-hidden rounded-lg">
+      <!-- Registration Form Section -->
+      <div class="flex-1 p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
         <div class="space-y-2">
-          <h1 class="text-2xl font-semibold tracking-tight text-emerald-950">
+          <h1 class="text-xl sm:text-2xl font-semibold tracking-tight text-emerald-950">
             Join {{appName}}
           </h1>
-          <div class="h-1 w-12 bg-gradient-to-r from-secondary to-teal-500"></div>
-          <p class="text-sm text-gray-600 leading-relaxed">
+          <div class="h-1 w-12 bg-gradient-to-r from-secondary to-teal-500 transition-all duration-300 hover:w-24"></div>
+          <p class="text-sm text-gray-600 leading-relaxed max-w-md">
             Become part of our university community for skill exchange. 
             Learn, teach, and grow alongside other students and professionals.
           </p>
         </div>
 
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
-          <div class="space-y-2">
-            <input
-              pInputText
-              type="text"
-              formControlName="name"
-              placeholder="Full Name"
-              class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
-            />
-          </div>
-          <div class="space-y-2">
-            <input
-              pInputText
-              type="email"
-              formControlName="email"
-              placeholder="Institutional Email"
-              class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
-            />
-            <app-error-message [formGroup]="registerForm" controlName="email" fieldName="Email"></app-error-message>
-          </div>
-          <div class="space-y-2">
-            <input
-              pInputText
-              type="password"
-              formControlName="password"
-              placeholder="Password"
-              class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
-            />
-            <app-error-message [formGroup]="registerForm" controlName="password" fieldName="Password"></app-error-message>
+          <div class="space-y-3">
+            <div class="relative">
+              <input
+                pInputText
+                type="text"
+                formControlName="name"
+                placeholder="Full Name"
+                class="h-11 w-full bg-white/50 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 
+                       rounded-md px-4 transition-colors duration-200 border"
+                [ngClass]="{'ng-invalid': registerForm.get('name')?.touched && registerForm.get('name')?.invalid}"
+              />
+              <small class="text-red-500" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+                Name is required
+              </small>
+            </div>
+
+            <div class="relative">
+              <input
+                pInputText
+                type="email"
+                formControlName="email"
+                placeholder="Institutional Email"
+                class="h-11 w-full bg-white/50 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 
+                       rounded-md px-4 transition-colors duration-200 border"
+              />
+              <app-error-message [formGroup]="registerForm" controlName="email" fieldName="Email">
+              </app-error-message>
+            </div>
+
+            <div class="relative">
+              <input
+                pInputText
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+                class="h-11 w-full bg-white/50 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 
+                       rounded-md px-4 transition-colors duration-200 border"
+              />
+              <app-error-message [formGroup]="registerForm" controlName="password" fieldName="Password">
+              </app-error-message>
+            </div>
+
+            <div class="relative">
+              <input
+                pInputText
+                type="password"
+                formControlName="confirmPassword"
+                placeholder="Confirm Password"
+                class="h-11 w-full bg-white/50 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 
+                       rounded-md px-4 transition-colors duration-200 border"
+              />
+              <small class="text-red-500" *ngIf="registerForm.errors?.['passwordMismatch']">
+                Passwords do not match
+              </small>
+            </div>
           </div>
 
-          <div class="space-y-2">
-            <input pInputText
-                   id="confirmPassword"
-                   type="password"
-                   placeholder="Confirm Password"
-                   formControlName="confirmPassword"
-                   class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty" />
-          </div>
-
-          
           <button
             pButton
             type="submit"
-            label="{{isLoading ? 'Registering...' : 'Create Account'}}"
-            class="w-full max-w-md h-11 bg-secondary text-emerald-700 rounded-md mx-auto"
+            [label]="isLoading ? 'Registering...' : 'Create Account'"
+            class="w-full h-11 bg-secondary hover:bg-emerald-600 text-emerald-700 hover:text-white 
+                   rounded-md transition-all duration-300 transform hover:scale-[1.02]"
             [disabled]="registerForm.invalid || isLoading"
           ></button>
         </form>
 
         <div class="text-center text-sm text-gray-600">
           Already have an account?
-          <a (click)="navigateToLogin()" href="javascript:void(0)" class="text-emerald-600 hover:text-emerald-700 transition-colors font-semibold cursor-pointer">
+          <a 
+            (click)="navigateToLogin()" 
+            class="text-emerald-600 hover:text-emerald-700 transition-colors font-semibold 
+                   cursor-pointer hover:underline ml-1"
+          >
             Log in here
           </a>
         </div>
       </div>
-      <div class="flex-1 bg-gradient-to-br from-secondary/80 to-teal-600 text-white p-8 relative">
-        <div class="absolute bottom-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-16 translate-y-16"></div>
+
+      <!-- Features Section -->
+      <div class="flex-1 bg-gradient-to-br from-secondary/80 to-teal-600 text-white p-4 sm:p-6 lg:p-8 relative 
+                  overflow-hidden">
+        <div class="absolute -bottom-16 -right-16 w-32 h-32 bg-white/10 rounded-full"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-pattern opacity-5"></div>
+        
         <div class="relative space-y-6">
           <h2 class="text-xl font-semibold">Why Choose {{appName}}?</h2>
+          
           <div class="space-y-6">
-            <div class="flex gap-4 items-start">
-              <div class="p-2 bg-white/10 rounded-lg">
+            <div class="feature-card">
+              <div class="icon-wrapper">
                 <lucide-icon [img]="users" class="h-5 w-5"></lucide-icon>
               </div>
               <div>
@@ -87,8 +116,8 @@
               </div>
             </div>
 
-            <div class="flex gap-4 items-start">
-              <div class="p-2 bg-white/10 rounded-lg">
+            <div class="feature-card">
+              <div class="icon-wrapper">
                 <lucide-icon [img]="star" class="h-5 w-5"></lucide-icon>
               </div>
               <div>
@@ -99,8 +128,8 @@
               </div>
             </div>
 
-            <div class="flex gap-4 items-start">
-              <div class="p-2 bg-white/10 rounded-lg">
+            <div class="feature-card">
+              <div class="icon-wrapper">
                 <lucide-icon [img]="lightbulb" class="h-5 w-5"></lucide-icon>
               </div>
               <div>
@@ -114,5 +143,5 @@
         </div>
       </div>
     </section>
-  </ng-template>
-</p-card>
+  </p-card>
+</div>
