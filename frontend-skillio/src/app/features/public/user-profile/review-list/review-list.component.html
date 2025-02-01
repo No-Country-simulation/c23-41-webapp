@@ -1,0 +1,33 @@
+<div>
+    <h2 class="text-2xl font-semibold mb-4">Reviews</h2>
+    <div class="space-y-6">
+      @for (review of reviews; track review.id) {
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-4">
+              <div class="border-4 border-white bg-quaternary rounded-full overflow-hidden">
+                <p-avatar 
+                  [image]="review.avatar"
+                  [label]="review.author[0]"
+                  shape="circle"
+                ></p-avatar>
+              </div>
+              <div>
+                <h3 class="font-medium">{{ review.author }}</h3>
+                <div class="flex items-center">
+                  @for (star of [1,2,3,4,5]; track star) {
+                    <lucide-icon [img]="starIcon"
+                      class="w-4 h-4" 
+                      [class.text-yellow-400]="star <= review.rating"
+                      [class.text-gray-300]="star > review.rating"
+                    ></lucide-icon>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-700">{{ review.comment }}</p>
+        </div>
+      }
+    </div>
+  </div>

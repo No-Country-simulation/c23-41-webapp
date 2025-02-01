@@ -1,0 +1,59 @@
+<p-overlayPanel #menu appendTo="body" class="w-14">
+  <div class="w-80">
+    <!-- User Info Section -->
+    <div class="flex flex-col space-y-1 p-2 border-b">
+      <p class="text-sm text-black font-medium leading-none">{{user ? user.name : 'John Doe' }}</p>
+      <p class="text-xs leading-none text-muted-foreground">
+        {{ user ?  user.email : 'example@domain.com' }}
+      </p>
+    </div>
+    
+    <!-- Rating Section -->
+    <div class="flex flex-col px-2 py-2">
+      <div class="flex items-center space-x-2">
+        <lucide-icon [img]="star" class="w-5 h-5 text-yellow-400 fill-current"></lucide-icon>
+        <span class="text-sm font-medium">
+          {{ user ?  (user.rating || 0).toFixed(1) : '4.2' }}
+        </span>
+        <p-progressBar 
+          [value]="20" 
+          [color]="'black'"
+          size="small"
+          [showValue]="false"
+          class="ml-2 py-1 flex-grow w-full"
+        ></p-progressBar>
+      </div>
+      <p class="text-xs text-muted-foreground px-1">
+        Your current rating based on project collaborations
+      </p>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="border-t mt-2 pt-2">
+      <p-menu [model]="menuItems" styleClass="w-full border-0 shadow-none">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="!item.separator">
+                <div class="w-full">
+                    <a (click)="item.command && item.command($event)" 
+                         class="flex justify-between items-center w-full px-3 py-1 text-sm hover:bg-gray-100 transition-colors cursor-pointer"
+                         [ngClass]="item.styleClass">
+                        <span>{{ item.label }}</span>
+                        <span *ngIf="item.badge" [class]="item.badgeStyleClass">{{ item.badge }}</span>
+                    </a>
+                </div>
+            </ng-container>
+            <div *ngIf="item.separator" class="my-2 border-t border-gray-200"></div>
+        </ng-template>
+    </p-menu>
+    </div>
+  </div>
+</p-overlayPanel>
+
+<p-avatar 
+  [image]="user ? user.avatar : ''"
+  [label]="(user ? user.name : 'User')[0]"
+  styleClass="cursor-pointer" 
+  (click)="menu.toggle($event)"
+  shape="circle"
+  [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+></p-avatar>

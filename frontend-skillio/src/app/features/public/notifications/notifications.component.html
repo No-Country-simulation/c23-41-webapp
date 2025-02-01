@@ -1,56 +1,60 @@
-<p-button (onClick)="op.toggle($event)" class="relative flex items-center gap-2 p-0 border-none bg-transparent"  badgeClass="bg-secondary text-black" icon="" badge="{{ unreadCount > 0 ? unreadCount : ''}}">
-    <lucide-icon pBadge [img]="bellIcon" class="h-4 w-4"></lucide-icon>
-</p-button>
+<p-overlayPanel #op class="w-24">
+  <div class="flex items-center justify-between p-3 border-b">
+    <h3 class="text-lg font-semibold">Notifications</h3>
+    @if (unreadCount() > 0) {
+      <button 
+        pButton 
+        class="p-button-text text-xs text-gray-500"
+        (click)="markAllAsRead()"
+      >
+        Mark all as read
+      </button>
+    }
+  </div>
+  
+  <p-scrollPanel class="h-[300px] bg-gray-50">
+    @for (notification of notifications(); track $index) {
+      <div 
+           class="p-4 hover:bg-gray-100 cursor-pointer flex items-start gap-3"
+           [ngClass]="{'bg-gray-50': notification.unread}"
+      >
+        <p-avatar 
+          [image]="notification.avatar" 
+          [label]="notification.title.charAt(0)"
+          shape="circle"
+          size="large"
+          class="rounded-full border text-sm"
+        ></p-avatar>
+        
+        <div class="flex-1 space-y-1">
+          <p class="text-sm font-medium">{{ notification.title }}</p>
+          <p class="text-sm text-gray-500">{{ notification.description }}</p>
+          <p class="text-xs text-gray-400">{{ notification.time }}</p>
+        </div>
+        
+        @if (notification.unread) {
+          <div 
+            class="h-2 w-2 rounded-full bg-secondary animate-pulse"
+          ></div>
+        }
+      </div>
+    }
+  </p-scrollPanel>
+</p-overlayPanel>
 
-    <p-overlayPanel #op>
-        <div class="flex items-center justify-between p-4">
-            <div class="flex items-center gap-2">
-              <h2 class="text-lg font-semibold">Notifications</h2>
-              @if (unreadCount > 0) {
-                  <span
-                    class="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-black"
-                  >
-                    {{ unreadCount }} new
-                  </span>
-              }
-            </div>
-            <div class="flex gap-2">
-              <button pButton class="text-xs" (click)="markAllAsRead()">
-                <lucide-icon [img]="checkIcon" class="mr-2 h-4 w-4"></lucide-icon>
-                Mark all read
-              </button>
-              <button pButton class="text-xs" (click)="clearAll()">
-                <lucide-icon [img]="trashIcon" class="mr-2 h-4 w-4"></lucide-icon>
-                Clear all
-              </button>
-            </div>
-          </div>
-          <p-divider></p-divider>
-          <div class="h-[400px] overflow-y-auto space-y-1">
-            @for (notification of notifications; track $index) {
-                <div [ngClass]="{'bg-muted/30': !notification.read}" class="flex gap-4 p-4 hover:bg-muted/50 transition-colors">
-                  <div class="flex-shrink-0">
-                    @if (notification.user) {
-                        <img [src]="notification.user.image" alt="" class="h-8 w-8 rounded-full" />
-                    }
-                    @if (!notification.user) {
-                        <div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center"></div>
-                    }
-                  </div>
-                  <div class="flex-1 space-y-1">
-                    <p class="text-sm font-medium">{{ notification.description }}</p>
-                    <p class="text-xs text-gray-500">{{ notification.time }}</p>
-                  </div>
-                  @if (!notification.read) {     
-                      <div class="flex-shrink-0">
-                        <div class="h-2 w-2 rounded-full bg-secondary"></div>
-                      </div>
-                  }
-                </div>
-            }
-          </div>
-          <p-divider></p-divider>
-          <div class="p-4">
-            <button pButton label="View all notifications" class="w-full text-sm"></button>
-          </div>
-    </p-overlayPanel>
+<button 
+  pButton 
+  class="p-button-text p-button-icon-only relative h-7 w-7 overflow-visible" 
+  (click)="op.toggle($event)"
+>
+  <lucide-icon [img]="bell" class="h-5 w-5"></lucide-icon>
+
+  <ng-container *ngIf="unreadCount() > 0">
+    <p-badge 
+      [value]="unreadCount()" 
+      severity="info" 
+      class="absolute -top-1 -right-1 text-white text-xs"
+    ></p-badge>
+  </ng-container>
+</button>
+

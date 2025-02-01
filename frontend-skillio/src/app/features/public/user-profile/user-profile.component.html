@@ -1,0 +1,64 @@
+<div class="max-w-3xl mx-auto px-4 py-4 space-y-12">
+  <!-- Banner and Avatar -->
+  <div class="relative">
+    <div class="aspect-[21/9] rounded-xl overflow-hidden bg-slate-400 border">
+      <img
+        [src]="profile ? profile.banner : 'https://i.pravatar.cc/32?img=10'"
+        [alt]="'Profile banner for ' + profile.name"
+        class="w-full h-full object-cover object-center bg-quaternary"
+      />
+    </div>
+    <div class="absolute -bottom-16 left-4 border-4 border-white rounded-full overflow-hidden shadow-lg w-32 h-32 flex items-center justify-center">
+      <p-avatar 
+        [image]="profile ? profile.avatar : '/assets/placeholder.svg'"
+        shape="circle"
+        size="xlarge"
+        styleClass="w-50 h-50"
+      ></p-avatar>
+    </div>
+    
+  </div>
+
+  <!-- User Info -->
+  <div class="pt-10 space-y-6">
+    <div class="flex justify-between items-start">
+      <div class="space-y-1">
+        <h1 class="text-3xl font-bold text-gray-900">{{ profile.name }}</h1>
+        <p class="text-gray-600">{{ profile.faculty }}</p>
+      </div>
+      <div>
+        <p-button 
+          label="Connect"
+          styleClass="bg-secondary text-black hover:bg-[#a7e65c] px-6 py-2"
+        ></p-button>
+      </div>
+    </div>
+    <article class="p-4 rounded-lg bg-white border shadow-sm">
+      <p class="text-gray-700">{{ profile.bio }}</p>
+    </article>
+  </div>
+
+  <!-- Rating -->
+  <div class="mt-2">
+    <p-card styleClass="shadow-none rounded-lg border">
+      <app-rating-display
+        [rating]="profile.rating"
+        [reviewCount]="profile.reviews.length"
+      ></app-rating-display>
+    </p-card>
+  </div>
+
+  <!-- Projects -->
+  <div class="mt-8">
+    <app-project-list
+      [projects]="profile.projects"
+    ></app-project-list>
+  </div>
+
+  <!-- Reviews -->
+  <div class="mt-8">
+    <app-review-list
+      [reviews]="profile.reviews"
+    ></app-review-list>
+  </div>
+</div>

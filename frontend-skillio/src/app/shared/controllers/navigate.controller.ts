@@ -31,4 +31,8 @@ export class NavigateController {
     public navigateToUsersFromAdminOutlet() {
         this._router.navigate(['admin', { outlets: { admin: ['users'] } }]);
     }
+
+    public navigateToProfile() {
+        this._router.navigate(['container', { outlets: { principal: ['profile'] } }]);
+    }
 }

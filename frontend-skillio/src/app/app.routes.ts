@@ -22,6 +22,11 @@ export const routes: Routes = [
                 path: 'feed',
                 outlet: 'principal',
                 loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent)
+            },
+            {
+                path: 'profile',
+                outlet: 'principal',
+                loadComponent: () => import('./features/public/user-profile/user-profile.component').then(m => m.UserProfileComponent)
             }
         ]
     },

@@ -51,9 +51,10 @@ export class AuthService {
   logout(): void {
     if (typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined') {
       sessionStorage.removeItem(this.AUTH_TOKEN_KEY);
+      this.isAuthenticatedSignal.set(false);
+      console.log('Logout successful!');
+      this._router.navigate(['authenticate', { outlets: { auth: ['login'] } }]);
     }
-    this.isAuthenticatedSignal.set(false);
-    this._router.navigate(['/login']);
   }
 
   /**
@@ -88,6 +89,21 @@ export class AuthService {
    */
   getAuthSignal() {
     return this.isAuthenticatedSignal;
+  }
+
+  /**
+   * Logs out the current user and removes them from the registered users list.
+   */
+  logoutAndRemoveUser(): void {
+    const token = sessionStorage.getItem(this.AUTH_TOKEN_KEY);
+    if (token) {
+      const username = token.split('-')[0];
+      const users = this.getRegisteredUsers();
+      const updatedUsers = users.filter((user) => user.username !== username);
+
+      this.saveRegisteredUsers(updatedUsers);
+    }
+    this.logout();
   }
 
   /**

@@ -94,3 +94,123 @@ html {
   margin: 0 auto;
 }
 
+.p-tooltip {
+  max-width: 200px;
+  
+  .p-tooltip-text {
+      background-color: #ffffff;
+      color: #333333;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.75rem;
+      font-weight: 400;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      line-height: 1.3;
+  }
+
+  .p-tooltip-arrow {
+      width: 0;
+      height: 0;
+      border-width: 4px;
+      border-style: solid;
+      display: none;
+  }
+
+
+  &.p-tooltip-active {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.12s, transform 0.12s;
+  }
+}
+
+
+.p-overlaypanel {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-width: 100px;
+  
+
+  .p-overlaypanel-content {
+      padding: 0;
+      background: transparent;
+  }
+  /* Ocultar la flecha por defecto */
+  &:before,
+  &:after {
+      display: none !important;
+  }
+
+
+  &.p-overlaypanel-enter {
+      opacity: 0;
+      transform: scale(0.98);
+  }
+
+  &.p-overlaypanel-enter-active {
+      opacity: 1;
+      transform: scale(1);
+      transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.p-overlaypanel-leave {
+      opacity: 1;
+  }
+
+  &.p-overlaypanel-leave-active {
+      opacity: 0;
+      transition: opacity 0.1s linear;
+  }
+
+
+  .p-component {
+      padding: 0;
+  }
+  
+
+  .p-overlaypanel-content {
+      &::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.05);
+      }
+  }
+}
+
+.p-overlaypanel-close {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  color: #666;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  }
+}

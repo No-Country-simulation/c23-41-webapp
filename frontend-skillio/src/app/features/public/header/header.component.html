@@ -1,5 +1,5 @@
 <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50 h-14">
-  <section class="h-full flex items-center justify-between container">
+  <section class="h-full flex items-center space-x-1 justify-between container">
     <div class="flex items-center space-x-4">
       <a 
         routerLink="/" 
@@ -20,10 +20,9 @@
       >
       <lucide-icon [img]="plusIcon" class="h-4 w-4 mr-2"></lucide-icon>
     </button>
+      
       <app-notifications></app-notifications>
-      <p-button class="flex items-center justify-center h-full">
-        <lucide-icon [img]="layoutGridIcon" class="h-4 w-4"></lucide-icon>
-      </p-button>
+      <app-user-menu></app-user-menu>
     </div>
   </section>
 </header>

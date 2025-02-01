@@ -3,19 +3,19 @@
       <button pButton [class]="getLikeButtonClass()" 
               (click)="engagementService.toggleLike()"
               size="small"
-              [pTooltip]="state().isLiked ? 'Unlike' : 'Like'">
+              [pTooltip]="state().isLiked ? 'Unlike this post' : 'Like this post'" tooltipPosition="top">
         <lucide-icon [img]="like" class="h-4 w-4 mr-2"></lucide-icon>
         <span>{{state().likeCount}}</span>
       </button>
 
       <button pButton class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
-              pTooltip="View comments">
+              pTooltip="View comments" tooltipPosition="top">
         <lucide-icon [img]="messageSquare" class="h-4 w-4 mr-2"></lucide-icon>
         <span>37</span>
       </button>
 
       <button pButton class="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
-              pTooltip="Share">
+              pTooltip="Share" tooltipPosition="top">
         <lucide-icon [img]="share2" class="h-4 w-4 mr-2"></lucide-icon>
         <span>18</span>
       </button>

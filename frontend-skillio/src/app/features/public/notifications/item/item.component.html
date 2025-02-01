@@ -1,0 +1,21 @@
+<div 
+      class="flex items-start gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50"
+      (click)="markAsRead()"
+    >
+      <p-avatar 
+        [image]="notification.avatar"
+        [label]="notification.title.charAt(0)"
+        shape="circle"
+        size="large"
+      ></p-avatar>
+      
+      <div class="flex-1 space-y-1">
+        <p class="text-sm font-medium leading-none">{{ notification.title }}</p>
+        <p class="text-sm text-muted-foreground">{{ notification.description }}</p>
+        <p class="text-xs text-muted-foreground">{{ notification.time }}</p>
+      </div>
+      
+      @if (notification.unread) {
+        <div class="h-2 w-2 rounded-full bg-[#b9ff66]"></div>
+      }
+    </div>

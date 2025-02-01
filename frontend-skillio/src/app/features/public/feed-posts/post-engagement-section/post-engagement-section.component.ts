@@ -23,13 +23,13 @@ export class PostEngagementSectionComponent {
 
   getLikeButtonClass(): string {
     return `flex items-center justify-center gap-2 px-4 py-2 rounded-full transition-colors ${
-      this.state().isLiked ? 'bg-[#b9ff66] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+      this.state().isLiked ? 'bg-secondary text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
     }`;
   }
 
   getBookmarkButtonClass(): string {
     return `p-2 rounded-full transition-colors ${
-      this.state().isBookmarked ? 'bg-[#b9ff66] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+      this.state().isBookmarked ? 'bg-secondary text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
     }`;
   }
 }

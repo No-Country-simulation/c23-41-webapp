@@ -1,0 +1,23 @@
+<div>
+    <h2 class="text-2xl font-semibold mb-4">Projects</h2>
+    <div class="space-y-4">
+      @for (project of projects; track project.id) {
+        <div 
+          class="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+          [class.cursor-pointer]="true"
+        >
+          <div>
+            <h3 class="font-semibold">{{ project.name }}</h3>
+            <p class="text-sm text-gray-600">{{ project.role }}</p>
+          </div>
+          <div class="flex items-center">
+            <p-tag 
+              [severity]="project.status === 'current' ? 'secondary' : 'contrast'"
+              [value]="project.status === 'current' ? 'Current' : 'Completed'"
+            ></p-tag>
+            <lucide-icon [img]="chevronRight"></lucide-icon>
+          </div>
+        </div>
+      }
+    </div>
+  </div>

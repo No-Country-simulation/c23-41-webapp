@@ -7,24 +7,17 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { IconLogoComponent } from '../../../shared/components/icon-logo/icon-logo.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { UserMenuComponent } from '../user-menu/user-menu.component';
 
-
-interface HeaderItem {
-  label?: string; 
-  icon?: string;  
-  type: 'button' | 'icon'; 
-  action?: string; 
-  classes?: string; 
-}
 
 @Component({
-  selector: 'app-vertical-header',
+  selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, TooltipModule, ButtonModule, ToolbarModule, LucideAngularModule,  AutoCompleteModule, IconLogoComponent, NotificationsComponent],
-  templateUrl: './vertical-header.component.html',
-  styleUrl: './vertical-header.component.scss'
+  imports: [CommonModule, TooltipModule, ButtonModule, ToolbarModule, LucideAngularModule,  AutoCompleteModule, IconLogoComponent, NotificationsComponent, UserMenuComponent],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss'
 })
-export class VerticalHeaderComponent {
+export class HeaderComponent {
   readonly userIcon = User;
   readonly bellIcon = Bell;
   readonly layoutGridIcon = LayoutGrid;
