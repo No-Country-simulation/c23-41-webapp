@@ -1,0 +1,26 @@
+<main class="h-screen w-full bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
+    <div class="w-full max-w-md flex flex-col items-center gap-8 p-4">
+      <!-- Animated Logo -->
+      <div class="animate-bounce mb-2">
+        <svg width="64" height="64" viewBox="0 0 64 64" class="fill-current text-secondary">
+          <!-- Replace with your actual logo SVG path -->
+          <path d="M32 8l24 48H8L32 8z"/>
+        </svg>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full">
+        <p-progressBar 
+          [mode]="'indeterminate'" 
+          [style]="{'height': '6px'}"
+          [color]="'black'">
+        </p-progressBar>
+      </div>
+    </div>
+
+    <!-- Background decoration -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-secondary/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-secondary/10 rounded-full blur-3xl"></div>
+    </div>
+  </main>

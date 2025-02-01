@@ -41,7 +41,7 @@ export class LoginComponent {
   toMakeLogin(username: string, password: string): void {
     setTimeout(() => {
       if (this.authService.login(username, password)) {
-        this.navigateController.navigateToFeedFromPrincipalOutlet();
+        this.navigateController.navigateToWelcome();
       } else {
         console.log('Login failed');
       }

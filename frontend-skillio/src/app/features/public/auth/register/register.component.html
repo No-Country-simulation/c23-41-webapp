@@ -1,4 +1,4 @@
-<p-card class="w-full overflow-hidden border-0 p-0 m-0" [@fadeInOut]>
+<p-card class="w-full overflow-hidden border-0 p-0 m-0">
   <ng-template pTemplate="content">
     <section class="flex md:flex-row md:max-w-5xl w-full border bg-white rounded-lg overflow-hidden">
       <div class="flex-1 p-8 space-y-6">
@@ -18,7 +18,7 @@
             <input
               pInputText
               type="text"
-              formControlName="fullName"
+              formControlName="name"
               placeholder="Full Name"
               class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty"
             />
@@ -43,25 +43,21 @@
             />
             <app-error-message [formGroup]="registerForm" controlName="password" fieldName="Password"></app-error-message>
           </div>
-          <div class="space-y-2 relative">
-            <p-multiSelect 
-              [options]="skills" 
-              formControlName="skills" 
-              placeholder="Select Skills"
-              optionLabel="name" 
-              display="chip" 
-              [showClear]="true" 
-              styleClass="w-full border max-w-md mx-auto" 
-              panelStyleClass="z-[1000]" 
-              variant="outlined"
-              appendTo="body" 
-            />
-            <app-error-message [formGroup]="registerForm" controlName="skills" fieldName="Skills"></app-error-message>
+
+          <div class="space-y-2">
+            <input pInputText
+                   id="confirmPassword"
+                   type="password"
+                   placeholder="Confirm Password"
+                   formControlName="confirmPassword"
+                   class="h-11 max-w-md bg-white/50 border-gray-300 focus:bg-white rounded-md px-4 border mx-auto w-full ng-invalid ng-dirty" />
           </div>
+
+          
           <button
             pButton
             type="submit"
-            label="Create Account"
+            label="{{isLoading ? 'Registering...' : 'Create Account'}}"
             class="w-full max-w-md h-11 bg-secondary text-emerald-700 rounded-md mx-auto"
             [disabled]="registerForm.invalid || isLoading"
           ></button>
@@ -74,7 +70,6 @@
           </a>
         </div>
       </div>
-      <!-- Right Column - Benefits -->
       <div class="flex-1 bg-gradient-to-br from-secondary/80 to-teal-600 text-white p-8 relative">
         <div class="absolute bottom-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-16 translate-y-16"></div>
         <div class="relative space-y-6">

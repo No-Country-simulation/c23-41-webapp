@@ -8,6 +8,11 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'welcome',
+        canActivate: [authGuard],
+        loadComponent: () => import('./features/public/welcome/welcome.component').then(m => m.WelcomeComponent)
+    },
+    {
         path: 'container',
         loadComponent: () => import('./features/container/container.component').then(m => m.ContainerComponent),
         canActivate: [authGuard],
@@ -21,7 +26,7 @@ export const routes: Routes = [
             {
                 path: 'feed',
                 outlet: 'principal',
-                loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent)
+                loadComponent: () => import('./features/public/feed/feed.component').then(m => m.FeedComponent),
             },
             {
                 path: 'profile',
@@ -49,6 +54,11 @@ export const routes: Routes = [
                 outlet: 'auth',
                 loadComponent: () => import('./features/public/auth/register/register.component').then(m => m.RegisterComponent)
             },
+            {
+                path: 'register-details',
+                outlet: 'auth',
+                loadComponent: () => import('./features/public/auth/register/register-details/register-details.component').then(m => m.RegisterDetailsComponent)
+            }
         ]
     },
     { 

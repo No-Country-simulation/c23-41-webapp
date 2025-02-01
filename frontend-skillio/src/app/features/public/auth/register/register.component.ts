@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Lightbulb, LucideAngularModule, Star, Users } from 'lucide-angular';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -12,82 +12,57 @@ import { ErrorMessageComponent } from '../../../../shared/components/error-messa
 import { APP_NAME } from '../../../../shared/constants/constants';
 import { SKILLS } from '../../../../shared/constants/skills';
 import { NavigateController } from '../../../../shared/controllers/navigate.controller';
+import { InputTextModule } from 'primeng/inputtext';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CardModule, ButtonModule, LucideAngularModule, ChipsModule, MultiSelectModule, CommonModule, ErrorMessageComponent],
+  imports: [ReactiveFormsModule, InputTextModule, ButtonModule, LucideAngularModule, CardModule, CommonModule, MultiSelectModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   animations: AnimationHandler.getFadeInOut()
 })
 export class RegisterComponent {
-  readonly navigateController = inject(NavigateController);
-  readonly authService = inject(AuthService)
-  // icons
   readonly users = Users;
   readonly star = Star;
   readonly lightbulb = Lightbulb;
+  readonly skills = SKILLS;
 
-  // Variables
-  public isLoading = false;
-  public appName = APP_NAME;
-  public skills = SKILLS;
+  appName = APP_NAME;
+  navigateController = inject(NavigateController)
+  submitted = false;
+  isLoading = false;
+
   
+  passwordMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { matching: false };
+  };
+
   registerForm = new FormGroup({
-      fullName: new FormControl('',  [Validators.required]),
-      email: new FormControl<string>('',  [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      skills: new FormControl<string[] | null>(null, [Validators.required])
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  }, {
+    validators: this.passwordMatchValidator
   });
-  
 
- /**
-   * Handles the submission of the registration form.
-   */
-  onSubmit(): void {
-    if (this.registerForm.invalid) {
-      return;
-    }
-
-    const { email, password } = this.registerForm.value;
-
-    // Save the user in sessionStorage after successful registration
-    if (this.authService.register(email as string, password as string)) {
-      console.log('Registration successful!');
-      this.toMakeLogin(email as string, password as string);
-    } else {
-      console.log('Username already exists.');
-    }
-  }
-
-  /**
-   * Performs the login process after successful registration.
-   * Navigates to the feed after login.
-   * @param username - The username to log in.
-   * @param password - The password to log in.
-   */
-  toMakeLogin(username: string, password: string): void {
-    setTimeout(() => {
-      if (this.authService.login(username, password)) {
-        this.navigateToFeed();
-      } else {
-        console.log('Login failed');
-      }
-    }, 500);
-  }
-
-  /**
-   * Navigates to the login page.
-   */
-  navigateToLogin(): void {
+  navigateToLogin = () => {
     this.navigateController.navigateToLoginFromAuthOutlet();
   }
-
-  /**
-   * Navigates to the feed page after successful login.
-   */
-  navigateToFeed(): void {
-    this.navigateController.navigateToFeedFromPrincipalOutlet();
+  onSubmit() {
+    this.submitted = true;
+    if (this.registerForm.valid) {
+      this.isLoading = true;
+      // Simulate API call
+      setTimeout(() => {
+        this.isLoading = false;
+        console.log("navigate")
+        this.navigateController.registerDetails();
+      }, 1000);
+    }
   }
 }

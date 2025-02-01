@@ -35,4 +35,12 @@ export class NavigateController {
     public navigateToProfile() {
         this._router.navigate(['container', { outlets: { principal: ['profile'] } }]);
     }
+
+    public navigateToWelcome() {
+        this._router.navigate(['welcome']);
+    }
+
+    public registerDetails() {
+        this._router.navigate(['authenticate', { outlets: { auth: ['register-details'] } }]);
+    }
 }

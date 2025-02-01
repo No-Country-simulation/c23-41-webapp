@@ -1,0 +1,17 @@
+<nav class="flex items-center space-x-6">
+    @for (item of navItems; track item.commands) {
+      <a [routerLink]="item.commands"
+         routerLinkActive="text-accent"
+         [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+         #rla="routerLinkActive"
+         class="relative flex h-9 w-9 items-center justify-center rounded-md transition-colors hover:bg-accent/10 hover:text-secondary"
+         [class.text-muted-foreground]="!rla.isActive"
+         pTooltip="{{item.label}}"
+         tooltipPosition="bottom">
+        
+        <lucide-angular [img]="item.icon" 
+                         [class.text-secondary]="rla.isActive"></lucide-angular>
+      </a>
+    }
+  </nav>
+  
