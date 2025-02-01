@@ -1,99 +1,172 @@
+<div class="block w-full max-w-4xl mx-auto p-4">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2">Complete Your Profile</h1>
+      <p class="text-gray-600 mb-6">Help us personalize your experience (optional)</p>
+      
+      <div class="bg-white rounded-lg p-4 mb-6 flex items-center gap-2 border border-gray-200">
+        <i class="pi pi-info-circle text-gray-600"></i>
+        <div>
+          <h3 class="font-medium">Why we ask for this information</h3>
+          <p class="text-gray-600">This helps us personalize your experience and connect you with relevant opportunities. You can always update this information later.</p>
+        </div>
+      </div>
 
-    <p-card styleClass="w-full overflow-hidden border-0 p-4 m-0">
-       <ng-template pTemplate="content">
-        <section class="w-full">
-            <div class="mb-8">
-                <p-steps [model]="steps" [activeIndex]="currentStep" styleClass="w-full" ></p-steps>
-            </div>
-        
-            <form [formGroup]="detailsForm" (ngSubmit)="onSubmit()" class="space-y-6">
-                @switch (currentStep) {
-                @case (0) {
-                    <div class="space-y-4">
-                    <div class="form-group">
-                        <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
-                        <input pInputText id="country" formControlName="country" class="w-full" />
-                        @if (submitted && detailsForm.get('country')?.errors) {
-                        <small class="text-red-500">Country is required</small>
-                        }
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                        <input pInputText id="city" formControlName="city" class="w-full" />
-                        @if (submitted && detailsForm.get('city')?.errors) {
-                        <small class="text-red-500">City is required</small>
-                        }
-                    </div>
-                    </div>
-                }
-                @case (1) {
-                    <div class="space-y-4">
-                    <div class="form-group">
-                        <label for="university" class="block text-sm font-medium text-gray-700">University</label>
-                        <input pInputText id="university" formControlName="university" class="w-full" />
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="career" class="block text-sm font-medium text-gray-700">Career</label>
-                        <input pInputText id="career" formControlName="career" class="w-full" />
-                    </div>
-                    </div>
-                }
-                @case (2) {
-                    <div class="space-y-4">
-                    <div class="form-group">
-                        <label for="skillsWanted" class="block text-sm font-medium text-gray-700">Skills Wanted</label>
-                        <textarea pInputTextarea id="skillsWanted" formControlName="skillsWanted" class="w-full"></textarea>
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="skillsHave" class="block text-sm font-medium text-gray-700">Skills I Have</label>
-                        <textarea pInputTextarea id="skillsHave" formControlName="skillsHave" class="w-full"></textarea>
-                    </div>
-                    </div>
-                }
-                }
-        
-                <div class="flex justify-between">
-                @if (currentStep > 0) {
-                    <button pButton
-                            type="button"
-                            (click)="previousStep()"
-                            label="Previous"
-                            icon="pi pi-chevron-left"
-                            class="p-button-outlined">
-                    </button>
-                }
-        
-                @if (currentStep < steps.length - 1) {
-                    <button pButton
-                            type="button"
-                            (click)="nextStep()"
-                            label="Next"
-                            iconPos="right"
-                            icon="pi pi-chevron-right"
-                            class="ml-auto bg-[#b9ff66] text-black hover:bg-[#a7e65c]">
-                    </button>
+      <div class="relative">
+        <div class="flex justify-between mb-2">
+          @for (step of steps; track step.id; let i = $index) {
+            <div class="flex flex-col items-center relative z-10">
+              <div [class]="getStepNumberClass(i)" class="w-8 h-8 rounded-full flex items-center justify-center mb-2">
+                @if (i < currentStep) {
+                    <lucide-angular [img]="checkCircle2" class="w-5 h-5"></lucide-angular>
                 } @else {
-                    <button pButton
-                            type="submit"
-                            [loading]="loading"
-                            label="Complete Registration"
-                            class="ml-auto bg-[#b9ff66] text-black hover:bg-[#a7e65c]">
-                    </button>
+                  <span>{{i + 1}}</span>
                 }
-                </div>
-            </form>
-        
-            <div class="mt-4 text-center">
-                <button pButton
-                        type="button"
-                        label="Skip for now"
-                        (click)="skip()"
-                        class="p-button-link">
-                </button>
+              </div>
+              <span [class]="getStepLabelClass(i)">{{step.label}}</span>
             </div>
-        </section>
-       </ng-template>
-    </p-card>
+          }
+        </div>
+        
+        <div class="absolute top-4 left-0 w-full h-[2px] bg-gray-200">
+          <div 
+            class="h-full bg-secondary transition-all duration-300" 
+            [style.width]="(currentStep / (steps.length - 1)) * 100 + '%'"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="detailsForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      @switch (currentStep) {
+        @case (0) {
+          <div class="space-y-4">
+            <div class="form-group">
+              <label for="country" class="block text-sm font-medium text-gray-700 pb-1">Country</label>
+              <input 
+                pInputText 
+                id="country" 
+                formControlName="country" 
+                placeholder="Enter your country"
+                class="w-full p-2 border rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary" 
+              />
+              @if (submitted && detailsForm.get('country')?.errors) {
+                <small class="text-red-500">Country is required</small>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="city" class="block text-sm font-medium text-gray-700 pb-1">City</label>
+              <input 
+                pInputText 
+                id="city" 
+                formControlName="city" 
+                placeholder="Enter your city"
+                class="w-full p-2 border rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary" 
+              />
+              @if (submitted && detailsForm.get('city')?.errors) {
+                <small class="text-red-500">City is required</small>
+              }
+            </div>
+          </div>
+        }
+        @case (1) {
+          <!-- Education step content -->
+          <div class="space-y-4">
+            <div class="form-group">
+                <label for="university" class="block text-sm font-medium text-gray-700 pb-1">University</label>
+                <input 
+                  pInputText 
+                  id="university" 
+                  formControlName="university" 
+                  placeholder="Enter your university"
+                  class="w-full p-2 border rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary" 
+                />
+                @if (submitted && detailsForm.get('university')?.errors) {
+                  <small class="text-red-500">university is required</small>
+                }
+              </div>
+              <div class="form-group">
+                <label for="career" class="block text-sm font-medium text-gray-700 pb-1">Career</label>
+                <input 
+                  pInputText 
+                  id="career" 
+                  formControlName="career" 
+                  placeholder="Enter your career"
+                  class="w-full p-2 border rounded-md focus:ring-2 focus:ring-secondary focus:border-secondary" 
+                />
+                @if (submitted && detailsForm.get('career')?.errors) {
+                  <small class="text-red-500">career is required</small>
+                }
+              </div>
+          </div>
+        }
+        @case (2) {
+          <div class="space-y-4">
+            <div class="form-group">
+                <p-multiSelect
+                  formControlName="skillsWanted"
+                  [options]="skills"
+                  optionLabel="name"
+                  optionValue="id"
+                  display="chip"
+                  placeholder="Select your skills wanted"
+                  styleClass="w-full border"
+                ></p-multiSelect>
+            </div>
+            <div class="form-group">
+                <p-multiSelect
+                  formControlName="skillsHave"
+                  [options]="skills"
+                  optionLabel="name"
+                  optionValue="name"
+                  display="chip"
+                  placeholder="Select your skills have"
+                  styleClass="w-full border"
+                ></p-multiSelect>
+            </div>
+          </div>
+        }
+      }
+
+      <div class="flex justify-between mt-6">
+        @if (currentStep > 0) {
+          <button pButton
+            type="button"
+            (click)="previousStep()"
+            class="p-button-outlined text-black hover:bg-gray-100 border px-4 py-1"
+          >
+          <lucide-angular [img]="chevronLeft" class="w-5 h-5"></lucide-angular>
+          Previous
+        </button>
+        }
+
+        @if (currentStep < steps.length - 1) {
+          <button pButton
+            type="button"
+            (click)="nextStep()"
+            class="ml-auto px-4 py-1 text-center bg-secondary text-black hover:bg-[#a7e65c] border-none"
+          >
+          Next
+          <lucide-angular [img]="chevronRight" class="w-5 h-5"></lucide-angular>
+        </button>
+        } @else {
+          <button pButton
+            type="submit"
+            [loading]="loading"
+            label="Complete Registration"
+            class="ml-auto px-4 py-1 text-center bg-[#b9ff66] text-black hover:bg-[#a7e65c] border-none"
+          >
+        </button>
+        }
+      </div>
+    </form>
+
+    <div class="mt-12 text-center">
+      <button pButton
+        type="button"
+        label="Skip for now"
+        (click)="skip()"
+        class="p-button-link text-gray-600 hover:text-gray-800"
+      ></button>
+    </div>
+  </div>
