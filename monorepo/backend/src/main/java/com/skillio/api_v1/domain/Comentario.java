@@ -22,11 +22,11 @@ public class Comentario {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @OneToOne
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id")
+    private Estudiante estudiante;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "publicacion_id", referencedColumnName = "id")
     private Publicacion publicacion;
 
@@ -35,14 +35,4 @@ public class Comentario {
 
     private LocalDate fechaComentario;
 
-    @Override
-    public String toString() {
-        return "Comentario{" +
-                "id=" + id +
-                ", usuario=" + usuario.toString() +
-                ", publicacion=" + publicacion.toString() +
-                ", comentarioTexto='" + comentarioTexto + '\'' +
-                ", fechaComentario=" + fechaComentario.toString() +
-                '}';
-    }
 }

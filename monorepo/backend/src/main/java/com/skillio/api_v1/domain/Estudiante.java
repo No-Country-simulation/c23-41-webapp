@@ -3,6 +3,7 @@ package com.skillio.api_v1.domain;
 import com.skillio.api_v1.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
+@SuperBuilder
 public class Estudiante extends  Usuario{
 
     @Column(length = 15, columnDefinition = "varchar(15)", nullable = true)
@@ -33,67 +34,21 @@ public class Estudiante extends  Usuario{
     @OneToMany(mappedBy = "usuario2", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Amistad> amistadesRecibidas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "estudiante")
     private List<Publicacion> publicaciones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "estudiante")
     private List<Comentario> comentarios = new ArrayList<>();
 
-    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
+    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = true)
     private String institucion;
 
-    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
+    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = true)
     private String educacion;
 
     private List<String> preferencias;
 
-    @Transient
+    @Builder.Default
     private Role role = Role.USUARIO;
 
-    public static EstudianteBuilder estudianteBuilder() {
-        return new EstudianteBuilder();
-    }
-
-    public static class EstudianteBuilder {
-        private UUID id;
-        private String nombres;
-        private String apellidos;
-        private String email;
-        private String password;
-
-        public EstudianteBuilder id(UUID id) {
-            this.id = id;
-            return this;
-        }
-
-        public EstudianteBuilder nombres(String nombres) {
-            this.nombres = nombres;
-            return this;
-        }
-
-        public EstudianteBuilder apellidos(String apellidos) {
-            this.apellidos = apellidos;
-            return this;
-        }
-
-        public EstudianteBuilder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public EstudianteBuilder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Estudiante build() {
-            Estudiante estudiante = new Estudiante();
-            estudiante.setId(id);
-            estudiante.setNombres(nombres);
-            estudiante.setApellidos(apellidos);
-            estudiante.setEmail(email);
-            estudiante.setPassword(password);
-            return estudiante;
-        }
-    }
 }

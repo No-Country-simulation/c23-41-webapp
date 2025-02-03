@@ -4,6 +4,7 @@ import com.skillio.api_v1.domain.Publicacion;
 import com.skillio.api_v1.enums.Visibilidad;
 import com.skillio.api_v1.mapper.publicacion.PublicacionMapper;
 import com.skillio.api_v1.models.publicacion.PublicacionDTO;
+import com.skillio.api_v1.repository.estudiante.EstudianteRepository;
 import com.skillio.api_v1.repository.publicacion.PublicacionRepository;
 import com.skillio.api_v1.repository.usuario.UsuarioRepository;
 import com.skillio.api_v1.service.publicacion.PublicacionService;
@@ -23,13 +24,23 @@ public class PublicacionServiceImpl implements PublicacionService {
     private final PublicacionRepository publicacionRepository;
     private final PublicacionMapper publicacionMapper;
     private final UsuarioRepository usuarioRepository;
+    private final EstudianteRepository estudianteRepository;
 
     @Override
     public List<PublicacionDTO> getPublicaciones() {
         List<Publicacion> publicacionList = publicacionRepository.findAll();
         return publicacionList.parallelStream()
                 .map(publicacionMapper::publicacionToPublicacionDTO)
-                .sorted(Comparator.comparing(PublicacionDTO::getFechaPublicacion))
+                .sorted(Comparator.comparing(PublicacionDTO::getFechaPublicacion).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PublicacionDTO> getPublicacionesPorPreferencias(List<String> preferencias) {
+        List<Publicacion> publicacionList = publicacionRepository.buscarPorPreferencias(preferencias);
+        return publicacionList.parallelStream()
+                .map(publicacionMapper::publicacionToPublicacionDTO)
+                .sorted(Comparator.comparing(PublicacionDTO::getFechaPublicacion).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -63,8 +74,8 @@ public class PublicacionServiceImpl implements PublicacionService {
 
     private void actualizacionPublicacion(Publicacion publicacion, PublicacionDTO publicacionActualizada){
         if (publicacionActualizada.getUsuarioId() != null && !publicacionActualizada.getUsuarioId().isBlank()){
-            if (usuarioRepository.findById(UUID.fromString(publicacionActualizada.getUsuarioId())).isPresent()){
-                publicacion.setUsuario(usuarioRepository.findById(UUID.fromString(publicacionActualizada.getUsuarioId())).get());
+            if (estudianteRepository.findById(UUID.fromString(publicacionActualizada.getUsuarioId())).isPresent()){
+                publicacion.setEstudiante(estudianteRepository.findById(UUID.fromString(publicacionActualizada.getUsuarioId())).get());
             }
         }
 

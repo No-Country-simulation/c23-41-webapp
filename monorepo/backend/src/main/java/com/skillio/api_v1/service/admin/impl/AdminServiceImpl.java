@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
         List<Admin> adminList = adminRepository.findAll();
         return adminList.parallelStream()
                 .map(adminMapper::adminToAdminDTO)
-                .sorted(Comparator.comparing(AdminDTO::getApellidos))
+                .sorted(Comparator.comparing(AdminDTO::getNombreCompleto))
                 .collect(Collectors.toList());
     }
 
@@ -65,12 +65,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     private void actualizacionAdmin(Admin admin, AdminDTO adminActualizado){
-        if (adminActualizado.getNombres() != null && !adminActualizado.getNombres().isBlank()){
-            admin.setNombres(adminActualizado.getNombres());
-        }
 
-        if (adminActualizado.getApellidos() != null && !adminActualizado.getApellidos().isBlank()){
-            admin.setApellidos(adminActualizado.getApellidos());
+        if (adminActualizado.getNombreCompleto() != null && !adminActualizado.getNombreCompleto().isBlank()){
+            admin.setNombreCompleto(adminActualizado.getNombreCompleto());
         }
 
         if (adminActualizado.getEmail() != null && !adminActualizado.getEmail().isBlank()){

@@ -1,7 +1,9 @@
 package com.skillio.api_v1.domain;
 
+import com.skillio.api_v1.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@SuperBuilder
 public class Usuario {
 
     @Id
@@ -23,10 +26,7 @@ public class Usuario {
     private UUID id;
 
     @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
-    private String nombres;
-
-    @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
-    private String apellidos;
+    private String nombreCompleto;
 
     @Column(length = 150, columnDefinition = "varchar(150)", updatable = true, nullable = false)
     private String email;
@@ -34,16 +34,7 @@ public class Usuario {
     @Column(nullable = false, updatable = true)
     private String password;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Comentario> comentarios = new ArrayList<>();
+    @Transient
+    private Role role;
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nombres='" + nombres + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

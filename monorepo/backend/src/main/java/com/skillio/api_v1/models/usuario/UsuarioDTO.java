@@ -1,4 +1,4 @@
-package com.skillio.api_v1.models.admin;
+package com.skillio.api_v1.models.usuario;
 
 import lombok.*;
 
@@ -7,9 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AdminDTO {
+public class UsuarioDTO {
     private String id;
     private String nombreCompleto;
     private String email;
     private String password;
+    private String role;
 }

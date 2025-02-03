@@ -27,7 +27,7 @@ public class EstudianteServiceImpl implements EstudianteService {
         List<Estudiante> estudianteList = estudianteRepository.findAll();
         return estudianteList.parallelStream()
                 .map(estudianteMapper::estudianteToEstudianteDTO)
-                .sorted(Comparator.comparing(EstudianteDTO::getApellidos))
+                .sorted(Comparator.comparing(EstudianteDTO::getFechaRegistro).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -64,12 +64,9 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     private void actualizacionEstudiante(Estudiante estudiante, EstudianteDTO estudianteActualizado){
-        if (estudianteActualizado.getNombres() != null && !estudianteActualizado.getNombres().isBlank()){
-            estudiante.setNombres(estudianteActualizado.getNombres());
-        }
 
-        if (estudianteActualizado.getApellidos() != null && !estudianteActualizado.getApellidos().isBlank()){
-            estudiante.setApellidos(estudianteActualizado.getApellidos());
+        if (estudianteActualizado.getNombreCompleto() != null && !estudianteActualizado.getNombreCompleto().isBlank()){
+            estudiante.setNombreCompleto(estudianteActualizado.getNombreCompleto());
         }
 
         if (estudianteActualizado.getEmail() != null && !estudianteActualizado.getEmail().isBlank()){

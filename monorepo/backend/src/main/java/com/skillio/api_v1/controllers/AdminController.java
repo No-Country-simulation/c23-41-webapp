@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,14 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<AdminDTO> getAdmins(){
         log.info("Muestra todos los admins");
         return adminService.getAdmins();
     }
 
     @GetMapping("/{idAdmin}")
+    @PreAuthorize("hasRole('ADMIN')")
     public AdminDTO getAdminPorId(@PathVariable(name = "idAdmin") UUID idAdmin)
             throws NotFoundException {
         log.info("Buscar admin por Id");
@@ -37,6 +40,7 @@ public class AdminController {
     }
 
     @PostMapping(path = "/nuevoAdmin")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> crearAdmin(@RequestBody AdminDTO adminDTO){
         log.info("Creando un nuevo admin");
         Admin adminCreado = adminService.crearAdmin(adminDTO);
@@ -48,6 +52,7 @@ public class AdminController {
     }
 
     @PutMapping("/{idAdmin}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> actualizarAdmin(@PathVariable(name = "idAdmin") UUID idAdmin,
                                                      @RequestBody AdminDTO adminDTO) throws NotFoundException {
         Optional<AdminDTO> adminDTOOptional = adminService
@@ -62,6 +67,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{idAdmin}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> eliminarAdmin(@PathVariable(name = "idAdmin") UUID idAdmin)
             throws NotFoundException {
         boolean isAdminEliminado = adminService.borrarAdmin(idAdmin);

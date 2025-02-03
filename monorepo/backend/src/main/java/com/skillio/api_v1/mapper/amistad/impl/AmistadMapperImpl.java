@@ -4,6 +4,7 @@ import com.skillio.api_v1.domain.Amistad;
 import com.skillio.api_v1.enums.EstadoAmistad;
 import com.skillio.api_v1.mapper.amistad.AmistadMapper;
 import com.skillio.api_v1.models.amistad.AmistadDTO;
+import com.skillio.api_v1.repository.estudiante.EstudianteRepository;
 import com.skillio.api_v1.repository.usuario.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,20 +17,20 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AmistadMapperImpl implements AmistadMapper {
 
-    private final UsuarioRepository usuarioRepository;
+    private final EstudianteRepository estudianteRepository;
 
     @Override
     public Amistad amistadDTOtoAmistad(AmistadDTO amistadDTO) {
         Amistad.AmistadBuilder builder = Amistad.builder()
-                .fechaAmistad(getLocalDate(amistadDTO.getFechaAmistad()))
+                .fechaAmistad(LocalDate.now())
                 .estadoAmistad(EstadoAmistad.valueOf(amistadDTO.getEstadoAmistad()));
 
-        if (usuarioRepository.findById(UUID.fromString(amistadDTO.getUsuarioId1())).isPresent()){
-            builder.usuario1(usuarioRepository.findById(UUID.fromString(amistadDTO.getUsuarioId1())).get());
+        if (estudianteRepository.findById(UUID.fromString(amistadDTO.getUsuarioId1())).isPresent()){
+            builder.usuario1(estudianteRepository.findById(UUID.fromString(amistadDTO.getUsuarioId1())).get());
         }
 
-        if (usuarioRepository.findById(UUID.fromString(amistadDTO.getUsuarioId2())).isPresent()){
-            builder.usuario1(usuarioRepository.findById(UUID.fromString(amistadDTO.getUsuarioId2())).get());
+        if (estudianteRepository.findById(UUID.fromString(amistadDTO.getUsuarioId2())).isPresent()){
+            builder.usuario1(estudianteRepository.findById(UUID.fromString(amistadDTO.getUsuarioId2())).get());
         }
 
 
@@ -52,10 +53,5 @@ public class AmistadMapperImpl implements AmistadMapper {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         return localDate.format(formato);
-    }
-
-    private LocalDate getLocalDate(String localDate){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return LocalDate.parse(localDate, formato);
     }
 }

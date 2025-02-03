@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,21 @@ public class PublicacionController {
     private final PublicacionService publicacionService;
 
     @GetMapping("/")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public List<PublicacionDTO> getPublicaciones(){
         log.info("Muestra todas las publicaciones");
         return publicacionService.getPublicaciones();
     }
 
+    @GetMapping("/buscar")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    public List<PublicacionDTO> getPublicacionesPorPreferencias(@RequestParam List<String> preferencias){
+        log.info("Muestra todas las publicaciones");
+        return publicacionService.getPublicacionesPorPreferencias(preferencias);
+    }
+
     @GetMapping("/{idPublicacion}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public PublicacionDTO getPublicacionPorId(@PathVariable(name = "idPublicacion") UUID idPublicacion)
             throws NotFoundException {
         log.info("Buscar publicacion por Id");
@@ -40,6 +50,7 @@ public class PublicacionController {
     }
 
     @PostMapping(path = "/nuevaPublicacion")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> crearPublicacion(@RequestBody PublicacionDTO publicacionDTO){
         log.info("Creando una nueva publicacion");
         Publicacion publicacionCreada = publicacionService.crearPublicacion(publicacionDTO);
@@ -51,6 +62,7 @@ public class PublicacionController {
     }
 
     @PutMapping("/{idPublicacion}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarPublicacion(@PathVariable(name = "idPublicacion") UUID idPublicacion,
                                                      @RequestBody PublicacionDTO publicacionDTO) throws NotFoundException {
         Optional<PublicacionDTO> publicacionDTOOptional = publicacionService
@@ -65,6 +77,7 @@ public class PublicacionController {
     }
 
     @DeleteMapping("/{idPublicacion}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> eliminarPublicacion(@PathVariable(name = "idPublicacion") UUID idPublicacion)
             throws NotFoundException {
         boolean idPublicacionEliminada = publicacionService.eliminarPublicacion(idPublicacion);

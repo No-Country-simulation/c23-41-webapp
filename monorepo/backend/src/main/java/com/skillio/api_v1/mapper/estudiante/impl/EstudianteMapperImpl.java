@@ -18,10 +18,8 @@ public class EstudianteMapperImpl implements EstudianteMapper {
     private PasswordEncoder passwordEncoder;
     @Override
     public Estudiante estudianteDTOtoEstudiante(EstudianteDTO estudianteDTO) {
-        Estudiante.EstudianteBuilder builder = Estudiante.estudianteBuilder()
-                .id(UUID.fromString(estudianteDTO.getId()))
-                .nombres(estudianteDTO.getNombres())
-                .apellidos(estudianteDTO.getApellidos())
+        Estudiante.EstudianteBuilder builder = Estudiante.builder()
+                .nombreCompleto(estudianteDTO.getNombreCompleto())
                 .email(estudianteDTO.getEmail())
                 .password(passwordEncoder.encode(estudianteDTO.getPassword()))
                 .telefono(Long.valueOf(estudianteDTO.getTelefono()))
@@ -42,14 +40,29 @@ public class EstudianteMapperImpl implements EstudianteMapper {
     public EstudianteDTO estudianteToEstudianteDTO(Estudiante estudiante) {
         EstudianteDTO.EstudianteDTOBuilder builder = EstudianteDTO.builder()
                 .id(estudiante.getId().toString())
-                .nombres(estudiante.getNombres())
-                .apellidos(estudiante.getApellidos())
+                .nombreCompleto(estudiante.getNombreCompleto())
                 .email(estudiante.getEmail())
                 .fechaNacimiento(getLocalDate(estudiante.getFechaNacimiento()))
                 .fechaRegistro(getLocalDate(estudiante.getFechaRegistro()));
 
         if (estudiante.getImagenPerfilUrl() != null && !estudiante.getImagenPerfilUrl().isEmpty()){
             builder.imagenPerfilUrl(estudiante.getImagenPerfilUrl());
+        }
+
+        if(estudiante.getInstitucion() != null && !estudiante.getInstitucion().isBlank()){
+            builder.institucion(estudiante.getInstitucion());
+        }
+
+        if (estudiante.getEducacion() != null && !estudiante.getEducacion().isBlank()){
+            builder.educacion(estudiante.getEducacion());
+        }
+
+        if(estudiante.getTelefono() != null && !estudiante.getTelefono().toString().isBlank()){
+            builder.telefono(String.valueOf(estudiante.getTelefono()));
+        }
+
+        if(estudiante.getPreferencias() != null && !estudiante.getPreferencias().isEmpty()){
+            builder.preferencias(estudiante.getPreferencias());
         }
 
         return builder.build();

@@ -16,10 +16,8 @@ public class AdminMapperImpl implements AdminMapper {
     private PasswordEncoder passwordEncoder;
     @Override
     public Admin adminDTOtoAdmin(AdminDTO adminDTO) {
-        Admin.AdminBuilder builder = Admin.adminBuilder()
-                .id(UUID.randomUUID())
-                .nombres(adminDTO.getNombres())
-                .apellidos(adminDTO.getApellidos())
+        Admin.AdminBuilder builder = Admin.builder()
+                .nombreCompleto(adminDTO.getNombreCompleto())
                 .email(adminDTO.getEmail())
                 .password(passwordEncoder.encode(adminDTO.getPassword()));
 
@@ -30,8 +28,7 @@ public class AdminMapperImpl implements AdminMapper {
     public AdminDTO adminToAdminDTO(Admin admin) {
         AdminDTO.AdminDTOBuilder builder = AdminDTO.builder()
                 .id(admin.getId().toString())
-                .nombres(admin.getNombres())
-                .apellidos(admin.getApellidos())
+                .nombreCompleto(admin.getNombreCompleto())
                 .email(admin.getEmail());
 
         return builder.build();
