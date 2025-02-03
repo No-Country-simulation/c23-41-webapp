@@ -1,13 +1,26 @@
 [build]
+  command = "echo 'Set specific commands per site in Netlify UI'"
+  publish = "."
+
+# Angular frontend configuration
+[context.frontend]
   base = "frontend-skillio"
   command = "npm i && npm run build:prod"
   publish = "dist/frontend-skillio/browser"
 
-[build.environment]
-  NODE_VERSION = "18"
-  NPM_FLAGS = "--legacy-peer-deps"
-
-[[redirects]]
+  [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Next.js landing page configuration
+[context.landing-skillio]
+  base = "landing-skillio"
+  command = "npm i && npm run build"
+  publish = "landing-skillio/out"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
