@@ -34,6 +34,13 @@ public class PublicacionController {
         return publicacionService.getPublicaciones();
     }
 
+    @GetMapping("/buscar")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    public List<PublicacionDTO> getPublicacionesPorPreferencias(@RequestParam List<String> preferencias){
+        log.info("Muestra todas las publicaciones");
+        return publicacionService.getPublicacionesPorPreferencias(preferencias);
+    }
+
     @GetMapping("/{idPublicacion}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public PublicacionDTO getPublicacionPorId(@PathVariable(name = "idPublicacion") UUID idPublicacion)
