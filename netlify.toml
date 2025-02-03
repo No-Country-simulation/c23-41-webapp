@@ -14,7 +14,7 @@
   status = 200
 
 # Next.js landing page configuration
-[context.landing-skillio]
+[context.production.environment]
   base = "landing-skillio"
   command = "npm i && npm run build"
   publish = "landing-skillio/out"
