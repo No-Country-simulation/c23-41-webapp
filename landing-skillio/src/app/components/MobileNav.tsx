@@ -24,7 +24,7 @@ export function MobileNav() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 top-16 z-40 bg-white px-6 py-8 shadow-lg"
+            className="fixed inset-0 top-16 z-40 bg-white px-6 py-8 shadow-lg min-h-[calc(100vh-40rem)]"
           >
             <nav className="flex flex-col space-y-6">
               <Link
@@ -49,7 +49,8 @@ export function MobileNav() {
                 Casos de estudiantes
               </Link>
               <Link
-                href="#"
+                href="https://test-skillio.netlify.app/"
+                target="_blank"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-[#7CFF6B] px-6 text-base font-medium shadow transition-colors hover:bg-[#7CFF6B]/90"
                 onClick={() => setIsOpen(false)}
               >

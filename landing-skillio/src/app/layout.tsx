@@ -1,41 +1,38 @@
-import type { Metadata } from "next"
-import { Mona_Sans as FontSans } from "next/font/google"
-import { Content as FontHeading } from "next/font/google"
-import type React from "react" // Import React
-import { cn } from "./lib/utils"
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-const fontSans = FontSans({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-sans",
-})
+});
 
-const fontHeading = FontHeading({
-  subsets: ["khmer"],
-  variable: "--font-heading",
-  weight: ["400", "700"], // Peso normal y negrita
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Skillio | Conecta tu talento",
   description: "Plataforma para conectar estudiantes y compartir habilidades",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
   },
 }
-
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <head />
-      <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable, fontHeading.variable)}>
-
-        {children}
+    <html lang="en" className="w-full h-full">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
+      >
+        <main className="flex flex-col w-full h-full min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
-  )
+  );
 }
-

@@ -7,7 +7,7 @@ import Link from "next/link"
 export function Footer() {
   return (
     <footer className="w-full bg-black text-white">
-      <div className="container px-4 py-12 md:px-6 md:py-16">
+      <div className="container mx-auto px-4 py-12 md:px-6 md:py-16">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-gray-800 pt-8 text-gray-400 sm:flex-row">
-          <p>© 2023 Positivus. All Rights Reserved.</p>
+          <p>© 2025 Positivus. All Rights Reserved.</p>
           <Link href="#" className="hover:text-[#7CFF6B] transition-colors">
             Privacy Policy
           </Link>
@@ -90,4 +90,3 @@ export function Footer() {
     </footer>
   )
 }
-
