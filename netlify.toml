@@ -1,7 +1,3 @@
-[build]
-  command = "echo 'Set specific commands per site in Netlify UI'"
-  publish = "."
-
 # Angular frontend configuration
 [context.frontend]
   base = "frontend-skillio"
@@ -14,9 +10,9 @@
   status = 200
 
 # Next.js landing page configuration
-[context.production.environment]
+[context.landing-skillio]
   base = "landing-skillio"
-  command = "npm i && npm run build"
+  command = "npm i && npm run build" 
   publish = "out"
 
 [[headers]]
@@ -24,3 +20,12 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+[[headers]]
+  for = "/landing-skillio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/landing-skillio/out/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
