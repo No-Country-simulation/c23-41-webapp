@@ -35,4 +35,14 @@ public class Comentario {
 
     private LocalDate fechaComentario;
 
+    @Override
+    public String toString() {
+        return "Comentario{" +
+                "id=" + id +
+                ", estudiante=" + estudiante.toString() +
+                ", comentarioTexto='" + comentarioTexto + '\'' +
+                ", fechaComentario=" + fechaComentario.toString() +
+                '}';
+    }
+
 }
