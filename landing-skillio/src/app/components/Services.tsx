@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import type React from "react" // Added import for React
+import type React from "react"
 
 interface ServiceCardProps {
   title: string
@@ -26,6 +26,7 @@ function ServiceCard({ title, variant, icon }: ServiceCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
+      id="services"
     >
       <div className="space-y-4">
         <div className="inline-block rounded-lg bg-[#7CFF6B] px-3 py-1 text-sm font-medium">{title}</div>

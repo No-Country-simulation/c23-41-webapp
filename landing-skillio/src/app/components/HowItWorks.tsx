@@ -20,6 +20,7 @@ function AccordionItem({ number, title, content, isOpen, onToggle }: AccordionIt
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
+      id="process"
     >
       <button onClick={onToggle} className="flex w-full items-center justify-between p-6">
         <div className="flex items-center gap-4">

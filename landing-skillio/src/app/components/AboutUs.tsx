@@ -19,6 +19,7 @@ function TeamMember({ name, role, image, linkedin }: TeamMemberProps) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
+      id="team-member"
     >
       <div className="space-y-4">
         <div className="relative h-32 w-32">
@@ -55,7 +56,7 @@ export function AboutUs() {
   const team = [
     {
       name: "Luis Luna",
-      role: "Desarrollador Java con Spring Backend",
+      role: "Desarrollador Frontend",
       image: "/placeholder.svg?height=128&width=128",
       linkedin: "https://linkedin.com/in/luisluna",
     },
@@ -67,14 +68,20 @@ export function AboutUs() {
     },
     {
       name: "Pablo Ramírez",
-      role: "Desarrollador Java con Spring Backend",
+      role: "Desarrollador Java Backend",
+      image: "/placeholder.svg?height=128&width=128",
+      linkedin: "https://linkedin.com/in/pramirez",
+    },
+    {
+      name: "Justo Gauna",
+      role: "Diseñador UI/UX",
       image: "/placeholder.svg?height=128&width=128",
       linkedin: "https://linkedin.com/in/pramirez",
     },
   ]
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
+    <section className="w-full py-8 md:py-18 lg:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <div className="space-y-8">
           <div className="inline-block rounded-lg bg-[#7CFF6B] px-3 py-1 text-lg font-medium">Sobre nosotros</div>

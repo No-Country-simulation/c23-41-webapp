@@ -4,6 +4,14 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { MobileNav } from "./MobileNav"
 
+function scrollToSection(e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) {
+  e.preventDefault()
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" })
+  }
+}
+
 export function Header() {
   return (
     <motion.header
@@ -24,14 +32,18 @@ export function Header() {
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="#" className="text-sm hover:text-green-500 transition-colors">
+          <Link href="#team-member" onClick={(e) => scrollToSection(e, "team-member")}  className="text-sm hover:text-green-500 transition-colors">
             Sobre nosotros
           </Link>
-          <Link href="#" className="text-sm hover:text-green-500 transition-colors">
+          <Link href="#services"
+            onClick={(e) => scrollToSection(e, "services")} className="text-sm hover:text-green-500 transition-colors">
             Servicios
           </Link>
-          <Link href="#" className="text-sm hover:text-green-500 transition-colors">
+          <Link href="#testimonials" onClick={(e) => scrollToSection(e, "testimonials")} className="text-sm hover:text-green-500 transition-colors">
             Casos de estudiantes
+          </Link>
+          <Link href="#process" onClick={(e) => scrollToSection(e, "process")} className="text-sm hover:text-green-500 transition-colors">
+            Proceso
           </Link>
         </nav>
         <div className="flex items-center gap-4">

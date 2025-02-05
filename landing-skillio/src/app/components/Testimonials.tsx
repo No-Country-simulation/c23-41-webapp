@@ -46,7 +46,7 @@ export function Testimonials() {
   }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+    <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center space-y-8">
           <div className="inline-block rounded-lg bg-[#7CFF6B] px-3 py-1 text-lg font-medium">Testimonios</div>
