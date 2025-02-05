@@ -1,4 +1,4 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class FormErrorMessages {
   private static errorMessages: Record<
@@ -25,4 +25,9 @@ export class FormErrorMessages {
     const getMessage = this.errorMessages[errorKey];
     return getMessage ? getMessage(control, fieldName) : null;
   }
+
+  static phoneValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const valid = /^\(\d{3}\) \d{3}-\d{4}$/.test(control.value);
+    return valid ? null : { invalidPhone: true };
+  };
 }

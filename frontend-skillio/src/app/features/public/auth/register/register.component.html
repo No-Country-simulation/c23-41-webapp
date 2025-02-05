@@ -45,14 +45,32 @@
             </div>
 
             <div class="relative">
-              <input
-                pInputText
-                type="password"
-                formControlName="password"
-                placeholder="Password"
-                class="h-11 w-full bg-white/50 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 
-                       rounded-md px-4 transition-colors duration-200 border"
-              />
+              <p-password
+                      id="password"
+                      formControlName="password"
+                      [toggleMask]="true"
+                      [feedback]="true"
+                      [strongRegex]="'^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$'"
+                      styleClass="w-full border hover:border-secondary focus:ring-0 rounded-lg"
+                      [inputStyle]="{'width': '100%', 'height': '2.75rem'}"
+                      inputStyleClass="px-4"
+                      
+                    >
+                      <ng-template pTemplate="header">
+                        <h6 class="text-sm font-medium mb-2">Choose a password</h6>
+                      </ng-template>
+                      <ng-template pTemplate="footer">
+                        <p-divider class="my-3"></p-divider>
+                        <p class="text-xs font-medium mb-2">Password requirements:</p>
+                        <ul class="text-xs space-y-1 pl-4">
+                          <li>Minimum 8 characters</li>
+                          <li>At least one lowercase letter</li>
+                          <li>At least one uppercase letter</li>
+                          <li>At least one number</li>
+                          <li>At least one special character</li>
+                        </ul>
+                      </ng-template>
+                    </p-password>
               <app-error-message [formGroup]="registerForm" controlName="password" fieldName="Password">
               </app-error-message>
             </div>
@@ -70,6 +88,19 @@
                 Passwords do not match
               </small>
             </div>
+
+            <div class="relative">
+              <p-inputMask
+                id="phone"
+                formControlName="phone"
+                mask="(999) 999-9999"
+                placeholder="(999) 999-9999"
+                styleClass="h-11 w-full bg-white/50 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 
+                       rounded-md px-4 transition-colors duration-200 border"
+              ></p-inputMask>
+              <app-error-message [formGroup]="registerForm" controlName="phone" fieldName="phone">
+              </app-error-message>
+          </div>
           </div>
 
           <button

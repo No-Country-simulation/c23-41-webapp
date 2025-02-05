@@ -1,0 +1,8 @@
+{
+    "/estudiante": {
+      "target": "https://skillio-api.zeabur.app",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
+  

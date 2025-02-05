@@ -1,65 +1,101 @@
 <section class="w-[370px] flex items-center justify-center">
-    <p-card class="w-full overflow-hidden p-0 m-0 border rounded-xl">
-        <ng-template pTemplate="content">
-            <section class="p-0 m-0 pt-4">
-                <div class="px-8 pt-2 pb-4 space-y-6">
-                    <div class="flex flex-col items-center justify-center text-center">
-                        <app-icon-logo></app-icon-logo>
-                        <p class="text-sm text-muted-foreground">
-                          Where skills meet collaboration
-                        </p>
-                      </div>
-                      
-                </div>
-            </section>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 p-6">
-                <div class="space-y-4">
-                    <div>
-                        <label for="username" class="text-sm text-muted-foreground mb-2 block">Username</label>
-                        <input 
-                            pInputText 
-                            id="username" 
-                            aria-describedby="username-help" 
-                            class="h-11 bg-white/50 transition-colors focus:bg-white rounded-lg p-2 w-full border"
-                            formControlName="email"/>
-                    </div>
-                    <div>
-                        <label for="password" class="text-sm text-muted-foreground mb-2 block">Password</label>
-                        <input 
-                            pInputText 
-                            id="password" 
-                            type="password"
-                            class="h-11 bg-white/50 transition-colors rounded-lg focus:bg-white p-2 w-full border"
-                            aria-describedby="password-help" 
-                            formControlName="password"/>
-                    </div>
-                </div>
-                <button
-                    type="submit"
-                    class="w-full h-11 bg-secondary hover:from-emerald-700 hover:to-teal-700 text-emerald-700 shadow-md rounded-lg transition-colors cursor-pointer"
-                    [disabled]="loginForm.invalid || isLoading"
-                    >
-                    {{isLoading ? "logging in..." : "Login"}}
-                </button>
-            </form>
-            <div class="text-center">
-                <a
-                  href="/forgot-password"
-                  class="text-sm text-muted-foreground hover:text-emerald-600 transition-colors"
-                >
-                Forgot your password?
-                </a>
+    <p-card class="w-full overflow-hidden p-0 m-0 border rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <ng-template pTemplate="content">
+        <section class="p-0 m-0 pt-4">
+          <div class="px-8 pt-2 pb-4 space-y-6">
+            <div class="flex flex-col items-center justify-center text-center">
+              <app-icon-logo label="Skillio" size="sm" labelPosition="right" labelSize="2xl"></app-icon-logo>
+              <p class="text-sm text-muted-foreground">
+                Where skills meet collaboration
+              </p>
             </div>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <button class="bg-secondary hover:from-emerald-600 hover:to-teal-600 transition-colors w-full" (click)="navigateToRegister()">
-                <div class="p-4"> 
-                    <p class="text-center text-sm text-emerald-600">
-                        New to Skillio?
-                      <span class="font-semibold text-emerald-600">Register now</span>
-                    </p>
-                </div>
-            </button>
-        </ng-template>
+          </div>
+        </section>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 p-6">
+          <div class="space-y-4">
+            <!-- Username/Email Field -->
+            <div class="relative">
+              <label for="email" class="text-sm text-muted-foreground mb-2 block">Email</label>
+              <span class="p-input-icon-left w-full">
+                <i class="pi pi-user"></i>
+                <input 
+                  pInputText 
+                  id="email" 
+                  aria-describedby="username-help"
+                  class="h-11 bg-white/50 transition-colors focus:bg-white rounded-lg p-2 w-full border hover:border-secondary focus:ring-0"
+                  formControlName="email"
+                />
+              </span>
+              <app-error-message
+                [formGroup]="loginForm"
+                controlName="email"
+                fieldName="Email"
+              ></app-error-message>
+            </div>
+
+            <!-- Password Field -->
+            <div class="relative">
+              <label for="password" class="text-sm text-muted-foreground mb-2 block">Password</label>
+              <p-password
+                id="password"
+                formControlName="password"
+                [toggleMask]="true"
+                [feedback]="true"
+                [strongRegex]="'^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$'"
+                [weakLabel]="'Weak'"
+                [mediumLabel]="'Medium'"
+                [strongLabel]="'Strong'"
+                styleClass="w-full"
+                inputStyleClass="h-11 bg-white/50 transition-colors focus:bg-white rounded-lg p-2 w-full hover:border-secondary focus:ring-0 border"
+                tooltipPosition="top"
+              ></p-password>
+              <app-error-message
+                [formGroup]="loginForm"
+                controlName="password"
+                fieldName="Password"
+              ></app-error-message>
+            </div>
+          </div>
+
+          <!-- Login Button -->
+          <button
+            type="submit"
+            class="w-full h-11 bg-secondary hover:bg-secondary/95 active:bg-emerald-100 text-emerald-700 shadow-md rounded-lg transition-all duration-300 cursor-pointer focus:ring-2 focus:ring-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+            [disabled]="loginForm.invalid || isLoading"
+          >
+            <span class="flex items-center justify-center">
+              {{isLoading ? "Logging in..." : "Login"}}
+            </span>
+          </button>
+        </form>
+
+        <!-- Forgot Password Link -->
+        <div class="text-center pb-4">
+          <a
+            href="/forgot-password"
+            class="text-sm text-muted-foreground hover:text-emerald-600 transition-colors underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-emerald-200 rounded-md px-2 py-1"
+          >
+            Forgot your password?
+          </a>
+        </div>
+      </ng-template>
+
+      <!-- Footer -->
+      <ng-template pTemplate="footer">
+        <button 
+          class="bg-secondary w-full group focus:outline-none focus:ring-2 focus:ring-emerald-200" 
+          (click)="navigateToRegister()"
+        >
+          <div class="p-4 hover:bg-secondary-50 transition-colors duration-300"> 
+            <p class="text-center text-sm text-emerald-600">
+              New to Skillio?
+              <span class="font-semibold text-emerald-600 group-hover:underline transition-all duration-300">
+                Register now
+              </span>
+            </p>
+          </div>
+        </button>
+      </ng-template>
     </p-card>
-</section>
+  </section>

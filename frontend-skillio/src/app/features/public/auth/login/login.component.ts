@@ -8,11 +8,13 @@ import { NavigateController } from '../../../../shared/controllers/navigate.cont
 import { AnimationHandler } from '../../../../shared/animations/animation-handler';
 import { IconLogoComponent } from '../../../../shared/components/icon-logo/icon-logo.component';
 import { AuthService } from '../../../../core/services/auth.service';
+import { PasswordModule } from 'primeng/password';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardModule, ButtonModule, LucideAngularModule, InputTextModule, ReactiveFormsModule, IconLogoComponent],
+  imports: [CommonModule,CardModule, ButtonModule, LucideAngularModule, InputTextModule, ReactiveFormsModule, IconLogoComponent, PasswordModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   animations: AnimationHandler.getFadeInOut()
@@ -39,8 +41,10 @@ export class LoginComponent {
   }
 
   toMakeLogin(username: string, password: string): void {
+    this.isLoading = true;
     setTimeout(() => {
       if (this.authService.login(username, password)) {
+        this.isLoading = false;
         this.navigateController.navigateToWelcome();
       } else {
         console.log('Login failed');

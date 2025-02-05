@@ -4,21 +4,25 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { Lightbulb, LucideAngularModule, Star, Users } from 'lucide-angular';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { ChipsModule } from 'primeng/chips';
+import { DividerModule } from 'primeng/divider';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { PasswordModule } from 'primeng/password';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AnimationHandler } from '../../../../shared/animations/animation-handler';
-import { ErrorMessageComponent } from '../../../../shared/components/error-message/error-message.component';
 import { APP_NAME } from '../../../../shared/constants/constants';
 import { SKILLS } from '../../../../shared/constants/skills';
 import { NavigateController } from '../../../../shared/controllers/navigate.controller';
-import { InputTextModule } from 'primeng/inputtext';
-import { RouterLink } from '@angular/router';
+import { FormErrorMessages } from '../../../../shared/utils/form-error-message';
+import { RegisterService } from './service/register.service';
+import { tap } from 'rxjs';
+import { RegisterController } from './controller/register.controller';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, ButtonModule, LucideAngularModule, CardModule, CommonModule, MultiSelectModule],
+  imports: [ReactiveFormsModule, InputTextModule, ButtonModule, LucideAngularModule, CardModule, CommonModule, MultiSelectModule, PasswordModule, InputMaskModule, DividerModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   animations: AnimationHandler.getFadeInOut()
@@ -32,6 +36,7 @@ export class RegisterComponent {
   appName = APP_NAME;
   navigateController = inject(NavigateController);
   authService = inject(AuthService);
+  registerController = inject(RegisterController);
   submitted = false;
   isLoading = false;
 
@@ -47,6 +52,7 @@ export class RegisterComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    phone: new FormControl('', [Validators.required, FormErrorMessages.phoneValidator])
   }, {
     validators: this.passwordMatchValidator
   });
@@ -60,17 +66,20 @@ export class RegisterComponent {
       this.authService.register(email, password)
     }, 500);
   }
+
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
-      this.isLoading = true;
-      // Simulate API call
-      setTimeout(() => {
-        this.isLoading = false;
-        console.log("navigate")
-        this.navigateController.registerDetails();
-      }, 1000);
+      this.registerController.registrarEstudiante(this.registerForm.value).pipe(tap({
+        next: () => {
+          this.isLoading = true;
+          // Simulate API call
+          setTimeout(() => {
+            this.isLoading = false;
+            this.navigateController.navigateToLoginFromAuthOutlet();
+          }, 1000);
+        }
+      })).subscribe();
     }
   }
 }
