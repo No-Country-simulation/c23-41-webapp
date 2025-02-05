@@ -1,4 +1,4 @@
-package com.skillio.api_v1.controllers;
+package com.skillio.api_v1.controllers.estudiante;
 
 
 import com.skillio.api_v1.domain.Estudiante;
@@ -54,7 +54,7 @@ public class EstudianteController {
     @PutMapping("/{idEstudiante}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarEstudiante(@PathVariable(name = "idEstudiante") UUID idEstudiante,
-                                                  @RequestBody EstudianteDTO estudianteDTO) throws NotFoundException {
+                                                     @RequestBody EstudianteDTO estudianteDTO) throws NotFoundException {
         Optional<EstudianteDTO> estudianteDTOOptional = estudianteService
                 .actualizarEstudiante(idEstudiante, estudianteDTO);
         if (estudianteDTOOptional.isEmpty()){

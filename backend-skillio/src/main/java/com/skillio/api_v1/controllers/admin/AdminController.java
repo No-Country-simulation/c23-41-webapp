@@ -1,4 +1,4 @@
-package com.skillio.api_v1.controllers;
+package com.skillio.api_v1.controllers.admin;
 
 import com.skillio.api_v1.domain.Admin;
 import com.skillio.api_v1.exceptions.NotFoundException;
@@ -54,7 +54,7 @@ public class AdminController {
     @PutMapping("/{idAdmin}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> actualizarAdmin(@PathVariable(name = "idAdmin") UUID idAdmin,
-                                                     @RequestBody AdminDTO adminDTO) throws NotFoundException {
+                                                @RequestBody AdminDTO adminDTO) throws NotFoundException {
         Optional<AdminDTO> adminDTOOptional = adminService
                 .actualizarAdmin(idAdmin, adminDTO);
         if (adminDTOOptional.isEmpty()){

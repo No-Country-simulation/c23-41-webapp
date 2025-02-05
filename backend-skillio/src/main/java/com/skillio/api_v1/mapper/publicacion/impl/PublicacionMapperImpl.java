@@ -22,10 +22,9 @@ public class PublicacionMapperImpl implements PublicacionMapper {
     @Override
     public Publicacion publicacionDTOtoPublicacion(PublicacionDTO publicacionDTO) {
         Publicacion.PublicacionBuilder builder = Publicacion.builder()
-                .id(UUID.randomUUID())
                 .content(publicacionDTO.getContenido())
-                .fechaPublicacion(getLocalDate(publicacionDTO.getFechaPublicacion()))
-                .visibilidad(Visibilidad.valueOf(publicacionDTO.getVisibilidad()))
+                .fechaPublicacion(LocalDate.now())
+                .visibilidad(Visibilidad.valueOf(publicacionDTO.getVisibilidad().toUpperCase()))
                 .palabrasClave(publicacionDTO.getPalabrasClave());
 
         if(estudianteRepository.findById(UUID.fromString(publicacionDTO.getUsuarioId())).isPresent()){
@@ -44,7 +43,12 @@ public class PublicacionMapperImpl implements PublicacionMapper {
                 .contenido(publicacion.getContent())
                 .fechaPublicacion(getLocalDate(publicacion.getFechaPublicacion()))
                 .visibilidad(publicacion.getVisibilidad().toString())
-                .palabrasClave(publicacion.getPalabrasClave());
+                .palabrasClave(publicacion.getPalabrasClave())
+                .nombreCompletoAutor(publicacion.getEstudiante().getNombreCompleto());
+
+        if (publicacion.getEstudiante().getImagenPerfilUrl()!=null && !publicacion.getEstudiante().getImagenPerfilUrl().isBlank()){
+            builder.fotoUrlAutor(publicacion.getEstudiante().getImagenPerfilUrl());
+        }
 
         return builder.build();
     }

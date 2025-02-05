@@ -1,4 +1,4 @@
-package com.skillio.api_v1.controllers;
+package com.skillio.api_v1.controllers.amistad;
 
 import com.skillio.api_v1.domain.Amistad;
 import com.skillio.api_v1.exceptions.NotFoundException;
@@ -54,7 +54,7 @@ public class AmistadController {
     @PutMapping("/{idAmistad}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarAmistad(@PathVariable(name = "idAmistad") UUID idAmistad,
-                                                @RequestBody AmistadDTO amistadDTO) throws NotFoundException {
+                                                  @RequestBody AmistadDTO amistadDTO) throws NotFoundException {
         Optional<AmistadDTO> amistadDTOOptional = amistadService
                 .actualizarAmistad(idAmistad, amistadDTO);
         if (amistadDTOOptional.isEmpty()){

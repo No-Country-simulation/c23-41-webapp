@@ -1,4 +1,4 @@
-package com.skillio.api_v1.controllers;
+package com.skillio.api_v1.controllers.publicacion;
 
 import com.skillio.api_v1.domain.Estudiante;
 import com.skillio.api_v1.domain.Publicacion;
@@ -28,18 +28,25 @@ public class PublicacionController {
     private final PublicacionService publicacionService;
 
     @GetMapping("/")
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    public List<PublicacionDTO> getPublicaciones(){
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    public List<PublicacionDTO> getPublicacionesParaUsuario(){
+        log.info("Muestra todas las publicaciones");
+        return publicacionService.getPublicacionesParaUsuario();
+    }
+
+    @GetMapping("/todo")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<PublicacionDTO> getPublicacionesParaAdmin(){
         log.info("Muestra todas las publicaciones");
         return publicacionService.getPublicaciones();
     }
 
-    /*@GetMapping("/")
+    @GetMapping("/buscar")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public List<PublicacionDTO> getPublicacionesPorPreferencias(@RequestParam List<String> preferencias){
         log.info("Muestra todas las publicaciones");
-        return publicacionService.getPublicaciones();
-    }*/
+        return publicacionService.getPublicacionesPorPreferencias(preferencias);
+    }
 
     @GetMapping("/{idPublicacion}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
@@ -64,7 +71,7 @@ public class PublicacionController {
     @PutMapping("/{idPublicacion}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<Void> actualizarPublicacion(@PathVariable(name = "idPublicacion") UUID idPublicacion,
-                                                     @RequestBody PublicacionDTO publicacionDTO) throws NotFoundException {
+                                                      @RequestBody PublicacionDTO publicacionDTO) throws NotFoundException {
         Optional<PublicacionDTO> publicacionDTOOptional = publicacionService
                 .actualizarPublicacion(idPublicacion, publicacionDTO);
         if (publicacionDTOOptional.isEmpty()){
