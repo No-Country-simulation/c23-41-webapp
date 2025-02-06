@@ -88,6 +88,6 @@ export class RegisterComponent {
       return;
     }
     this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
-    this.navigateController.navigateToLoginFromAuthOutlet();
+    this.navigateController.navigateToWelcome();
   }
 }
