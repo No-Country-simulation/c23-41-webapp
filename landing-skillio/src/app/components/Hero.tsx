@@ -25,7 +25,7 @@ export function Hero() {
             </div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <a
-                href="https://site-skillio.netlify.app/"
+                href="https://test-skillio.netlify.app/"
                 target="_blank"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-black px-8 text-sm font-medium text-white shadow transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-1"
               >
