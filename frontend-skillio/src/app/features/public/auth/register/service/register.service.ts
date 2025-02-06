@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-// Define el modelo de Estudiante
 export interface NewUser {
   nombreCompleto: string;
   email: string;
@@ -25,6 +23,6 @@ export class RegisterService {
    */
   registerUser(estudiante: NewUser): Observable<any> {
     const endpoint = `${this.apiUrl}/nuevoEstudiante`;
-    return this.http.post(endpoint, estudiante);
+    return this.http.post(endpoint, estudiante, { withCredentials : true });
   }
 }

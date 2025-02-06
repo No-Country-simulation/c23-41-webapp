@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
-import { RouterOutlet } from '@angular/router';
-import { RightSidebarComponent } from '../right-sidebar/right-sidebar.component';
 import { FeedPostsComponent } from '../feed-posts/feed-posts.component';
+import { RightSidebarComponent } from '../right-sidebar/right-sidebar.component';
+import { InlineCreatorPosComponent } from '../inline-creator-pos/inline-creator-pos.component';
 
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet, RightSidebarComponent, FeedPostsComponent],
+  imports: [RightSidebarComponent, FeedPostsComponent, InlineCreatorPosComponent],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss'
 })

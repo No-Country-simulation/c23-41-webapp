@@ -67,7 +67,7 @@ export class RegisterComponent {
     }, 500);
   }
 
-  onSubmit() {
+  onSubmitt() {
     this.submitted = true;
     if (this.registerForm.valid) {
       this.registerController.registrarEstudiante(this.registerForm.value).pipe(tap({
@@ -81,5 +81,13 @@ export class RegisterComponent {
         }
       })).subscribe();
     }
+  }
+
+  onSubmit() {
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
+    this.navigateController.navigateToLoginFromAuthOutlet();
   }
 }

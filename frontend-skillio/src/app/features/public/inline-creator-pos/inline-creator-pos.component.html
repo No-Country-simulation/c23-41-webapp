@@ -1,0 +1,150 @@
+<!-- post-form.component.html -->
+<div class="w-full max-w-[1200px] mb-4">
+  @if (!isEditing()) {
+    <div 
+      class="cursor-pointer border rounded-lg p-3 sm:p-4 flex items-center gap-3 sm:gap-4 bg-white hover:bg-gray-50 transition-colors duration-200"
+    >
+      <p-avatar 
+        label="A"
+        shape="circle"
+        [styleClass]="'flex-shrink-0 bg-gray-100 text-gray-600 h-8 w-8 sm:h-10 sm:w-10'"
+      ></p-avatar>
+      <span 
+        class="text-sm text-gray-800 border px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg w-full hover:bg-gray-50 flex-grow justify-start text-left font-normal"
+        (click)="startEditing()" 
+        role="button"
+        tabindex="0"
+      >
+        What would you like to share or ask?
+      </span>
+    </div>
+  } @else {
+    <form 
+      [formGroup]="postForm" 
+      class="bg-white border rounded-lg shadow-sm"
+    >
+      <div class="p-3 sm:p-4 space-y-3 sm:space-y-4">
+        <div class="flex items-center gap-3 sm:gap-4">
+          <p-avatar 
+            label="A"
+            shape="circle"
+            [styleClass]="'flex-shrink-0 bg-gray-100 text-gray-600 h-8 w-8 sm:h-10 sm:w-10'"
+          ></p-avatar>
+          
+          <p-dropdown 
+            [options]="postTypeOptions" 
+            formControlName="postType"
+            placeholder="Select Type"
+            optionLabel="label"
+            optionValue="value"
+            [showClear]="false"
+            styleClass="w-full border"
+            [style]="{'min-width': '100%'}"
+          ></p-dropdown>
+        </div>
+
+        <div class="space-y-2">
+          <input 
+            pInputText 
+            formControlName="title" 
+            placeholder="Enter a descriptive title" 
+            class="w-full p-2.5 sm:p-3 border rounded-lg text-sm"
+          >
+          @if (postForm.get('title')?.touched && postForm.get('title')?.invalid) {
+            <small class="text-red-500 text-xs sm:text-sm">
+              Title must be at least 10 characters long
+            </small>
+          }
+        </div>
+
+        <div class="space-y-2">
+          <textarea 
+            pInputTextarea 
+            formControlName="description"
+            placeholder="Describe what you're offering or seeking..." 
+            [rows]="4" 
+            class="w-full p-2.5 sm:p-3 border rounded-lg text-sm resize-none"
+          ></textarea>
+          @if (postForm.get('description')?.touched && postForm.get('description')?.invalid) {
+            <small class="text-red-500 text-xs sm:text-sm">
+              Description must be at least 20 characters long
+            </small>
+          }
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start gap-2 sm:gap-3">
+          <p-fileUpload 
+            mode="basic" 
+            chooseLabel=""
+            accept="image/*" 
+            (onSelect)="onFileSelect($event)"
+            [maxFileSize]="1000000"
+            styleClass="p-button-rounded p-button-text border self-start"
+            [style]="{
+              'width': '2.5rem',
+              'height': '2.5rem',
+              'padding': '0',
+              'borderRadius': '9999px',
+              'minWidth': '2.5rem'
+            }"
+            [class.sm:width]="'3rem'"
+            [class.sm:height]="'3rem'"
+          >
+          </p-fileUpload>
+        
+          <div class="flex-1 w-full">
+            <div class="relative border rounded-lg">
+              <p-chips 
+                [max]="5"
+                [allowDuplicate]="false"
+                separator=","
+                placeholder="Add tags... e.g. tag1, tag2"
+                [addOnBlur]="true"
+                [addOnTab]="true"
+                styleClass="w-full"
+                formControlName="tags"
+                inputStyleClass="px-4 w-[calc(100%_-_2rem)] py-1 sm:py-2 text-sm"
+                chi
+              ></p-chips>
+            </div>
+            <small class="text-gray-500 text-xs mt-1 block">
+              Enter up to 5 tags, separated by commas
+            </small>
+          </div>
+        </div>
+
+        @if (imagePreview()) {
+          <div class="relative inline-block">
+            <img 
+              [src]="imagePreview()" 
+              alt="Preview"
+              class="h-20 w-20 sm:h-24 sm:w-24 rounded-lg object-cover"
+            >
+            <button 
+              pButton 
+              icon="pi pi-times" 
+              class="absolute -top-2 -right-2 p-button-danger p-button-rounded p-button-sm"
+              (click)="clearImage()"
+            ></button>
+          </div>
+        }
+      </div>
+
+      <div class="flex justify-between p-3 sm:p-4 bg-gray-50 rounded-b-lg">
+        <button 
+          pButton 
+          label="Cancel" 
+          class="p-button-text text-xs sm:text-sm" 
+          (click)="cancelEditing()"
+        ></button>
+        <button 
+          pButton 
+          label="Publish" 
+          [disabled]="!postForm.valid"
+          (click)="publishPost()"
+          class="bg-black text-white rounded-md text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 hover:bg-gray-800 disabled:bg-gray-400"
+        ></button>
+      </div>
+    </form>
+  }
+</div>

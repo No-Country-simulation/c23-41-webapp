@@ -1,12 +1,12 @@
-import { Component, input } from '@angular/core';
-import { Post } from '../types/post';
-import { MenuItem } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+import { Component, input } from '@angular/core';
+import { Clock3, Ellipsis, LucideAngularModule, Plus } from 'lucide-angular';
+import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-import { Clock3, Ellipsis, LucideAngularModule } from 'lucide-angular';
+import { TooltipModule } from 'primeng/tooltip';
+import { Post } from '../types/post';
 
 @Component({
   selector: 'app-post-header',
@@ -18,6 +18,7 @@ import { Clock3, Ellipsis, LucideAngularModule } from 'lucide-angular';
 export class PostHeaderComponent {
   readonly clock3 = Clock3;
   readonly ellipsis = Ellipsis;
+  readonly plus = Plus
 
   author = input.required<Post['author']>();
   readTime = input.required<number>();

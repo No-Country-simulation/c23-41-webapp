@@ -81,7 +81,51 @@ html {
   animation-timing-function: ease-in-out;
 }
 
-/* Custom styles for Skillio */
+// In your global styles.scss or styles file
+:root {
+  // Dropdown input
+  --p-dropdown-height: 2.25rem;  // Adjust height
+  --p-dropdown-padding-vertical: 0.25rem;
+  --p-dropdown-padding-horizontal: 0.5rem;
+  --p-dropdown-border-radius: 0.375rem;  // Tailwind md-rounded
+  
+  // Dropdown panel
+  --p-dropdown-panel-border-radius: 0.375rem;
+  --p-dropdown-panel-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.p-dropdown {
+  height: var(--p-dropdown-height);
+  display: flex;
+  align-items: center;
+ 
+  .p-dropdown-label {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    line-height: 1;
+  }
+ 
+  .p-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+ }
+
+.p-dropdown-panel {
+  border-radius: var(--p-dropdown-panel-border-radius);
+  box-shadow: var(--p-dropdown-panel-box-shadow);
+  
+  .p-dropdown-items {
+    .p-dropdown-item {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
+}
+
 .skillio-card {
   @apply transition-all duration-300 ease-in-out;
 }
