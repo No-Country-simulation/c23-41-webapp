@@ -39,16 +39,12 @@
               <label for="password" class="text-sm text-muted-foreground mb-2 block">Password</label>
               <p-password
                 id="password"
-                formControlName="password"
+                [feedback]="false"
                 [toggleMask]="true"
-                [feedback]="true"
+                formControlName="password"
                 [strongRegex]="'^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$'"
-                [weakLabel]="'Weak'"
-                [mediumLabel]="'Medium'"
-                [strongLabel]="'Strong'"
                 styleClass="w-full"
                 inputStyleClass="h-11 bg-white/50 transition-colors focus:bg-white rounded-lg p-2 w-full hover:border-secondary focus:ring-0 border"
-                tooltipPosition="top"
               ></p-password>
               <app-error-message
                 [formGroup]="loginForm"
