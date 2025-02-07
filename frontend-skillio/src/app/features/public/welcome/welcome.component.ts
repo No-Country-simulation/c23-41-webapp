@@ -15,7 +15,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.navigationController.navigateToFeedFromPrincipalOutlet();
-    }, 9000);
+    }, 700);
   }
 
 }
