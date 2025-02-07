@@ -15,23 +15,48 @@
     </div>
   
     <div class="flex items-center gap-2">
-      <button pButton pRipple class="flex items-center gap-2 px-4 py-1 bg-black text-white rounded-ld">
-        <lucide-icon [img]="plus" class="h-4 w-4"></lucide-icon>
-        Connect
-      </button>
-      <!--<p-badge value="Suggested" styleClass="bg-secondary text-black font-medium px-2 text-center"></p-badge>
-  
-      <button pTooltip="{{readTime()}} min read" tooltipPosition="bottom"
-              class="bg-gray-100 rounded-full p-1">
-        <lucide-icon [img]="clock3" class="lucide-clock-3 text-gray-600 text-sm h-4 w-4"></lucide-icon>
-      </button>
-  
-      <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
-      <button pButton
-              class="p-button-text p-button-rounded"
-              (click)="menu.toggle($event)">
-              <lucide-icon  [img]="ellipsis" class="h-4 w-4"></lucide-icon>
-      </button>-->
+      <button 
+      pButton 
+      [class]="buttonClass()"
+      (click)="handleConnectionRequest()">
+      <div class="flex items-center gap-2">
+        @if (!isPending()) {
+          <lucide-icon [img]="plus" class="h-4 w-4" />
+        } @else {
+          <lucide-icon [img]="clock3" class="h-4 w-4" />
+        }
+        {{ buttonText() }}
+      </div>
+    </button>
     </div>
   </div>
-  
+  @if (showPendingAlert()) {
+    <div 
+      [@slideDown]="true"
+      class="my-4 w-full p-4 bg-white rounded-lg border border-gray-200">
+      <div class="flex items-center justify-between">
+        <div class="flex text-left flex-col">
+          <p class="text-sm font-semibold">Cancel Connection Request?</p>
+          <p class="text-sm text-gray-600 flex-shrink-0 mr-4">
+            Do you want to cancel your request to Eva Green?
+          </p>
+        </div>
+        <div class="flex gap-2 flex-shrink-0">
+          <button 
+            pButton 
+            size="small"
+            class="px-4 py-2 text-sm bg-transparent border hover:bg-gray-200 text-gray-700 transition-colors duration-200 rounded-lg"
+            (click)="cancelRequest()">
+            Cancel Request
+          </button>
+          <button 
+            pButton 
+            size="small"
+            class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 transition-colors duration-200 rounded-lg"
+            (click)="keepPending()">
+            Keep Pending
+          </button>
+        </div>
+      </div>
+    </div>
+  }

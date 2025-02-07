@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { Clock3, Ellipsis, LucideAngularModule, Plus } from 'lucide-angular';
 import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -27,4 +27,36 @@ export class PostHeaderComponent {
     { label: 'Copy link', icon: 'pi pi-copy' },
     { label: 'Report post', icon: 'pi pi-flag' }
   ];
+
+   isPending = signal(false);
+    showPendingAlert = signal(false);
+    
+    // Computed values
+    buttonText = computed(() => this.isPending() ? 'Pending' : 'Connect');
+    buttonClass = computed(() => `
+      flex items-center gap-2 px-4 py-1 rounded-lg
+      ${this.isPending() 
+        ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200' 
+        : 'bg-black text-white hover:bg-gray-800'}
+    `);
+  
+    // Methods
+    handleConnectionRequest() {
+      if (this.isPending()) {
+        this.showPendingAlert.set(true);
+      } else {
+        console.log(`Sending connection request to user: ${this.author()}`);
+        this.isPending.set(true);
+      }
+    }
+  
+    cancelRequest() {
+      console.log(`Cancelling connection request for user: ${this.author()}`);
+      this.isPending.set(false);
+      this.showPendingAlert.set(false);
+    }
+  
+    keepPending() {
+      this.showPendingAlert.set(false);
+    }
 }
