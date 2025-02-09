@@ -69,7 +69,8 @@
         <!-- Forgot Password Link -->
         <div class="text-center pb-4">
           <a
-            href="/forgot-password"
+            role="button"
+            (click)="navigateToRecovery()"
             class="text-sm text-muted-foreground hover:text-emerald-600 transition-colors underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-emerald-200 rounded-md px-2 py-1"
           >
             Forgot your password?

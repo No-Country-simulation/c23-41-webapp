@@ -9,20 +9,32 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PasswordModule } from 'primeng/password';
+import { ToastModule } from 'primeng/toast';
+import { finalize, tap } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AnimationHandler } from '../../../../shared/animations/animation-handler';
 import { APP_NAME } from '../../../../shared/constants/constants';
 import { SKILLS } from '../../../../shared/constants/skills';
 import { NavigateController } from '../../../../shared/controllers/navigate.controller';
+import { ToastServiceService } from '../../../../shared/services/toast-service.service';
 import { FormErrorMessages } from '../../../../shared/utils/form-error-message';
-import { RegisterService } from './service/register.service';
-import { tap } from 'rxjs';
 import { RegisterController } from './controller/register.controller';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, ButtonModule, LucideAngularModule, CardModule, CommonModule, MultiSelectModule, PasswordModule, InputMaskModule, DividerModule],
+  imports: [
+    ReactiveFormsModule, 
+    InputTextModule, 
+    ButtonModule, 
+    LucideAngularModule, 
+    CardModule, 
+    CommonModule,  
+    ToastModule,  
+    MultiSelectModule, 
+    PasswordModule, 
+    InputMaskModule, 
+    DividerModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   animations: AnimationHandler.getFadeInOut()
@@ -33,10 +45,12 @@ export class RegisterComponent {
   readonly lightbulb = Lightbulb;
   readonly skills = SKILLS;
 
-  appName = APP_NAME;
   navigateController = inject(NavigateController);
   authService = inject(AuthService);
   registerController = inject(RegisterController);
+  toastService = inject(ToastServiceService);
+  
+  appName = APP_NAME;
   submitted = false;
   isLoading = false;
 
@@ -70,16 +84,21 @@ export class RegisterComponent {
   onSubmitt() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      this.registerController.registrarEstudiante(this.registerForm.value).pipe(tap({
-        next: () => {
-          this.isLoading = true;
-          // Simulate API call
-          setTimeout(() => {
-            this.isLoading = false;
-            this.navigateController.navigateToLoginFromAuthOutlet();
-          }, 1000);
-        }
-      })).subscribe();
+      this.isLoading = true;
+      this.registerController.registrarEstudiante(this.registerForm.value).pipe(
+        finalize(() => this.isLoading = false),
+        tap({
+          next: () => {
+            this.toastService.success('Registration successful! Please log in.');
+            setTimeout(() => {
+              this.navigateController.registerDetails();
+            }, 1000);
+          },
+          error: (error) => {
+            this.toastService.error('Registration failed. Please try again.');
+          }
+        })
+      ).subscribe();
     }
   }
 
@@ -88,6 +107,9 @@ export class RegisterComponent {
       return;
     }
     this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
-    this.navigateController.navigateToWelcome();
+    this.toastService.success('Registration successful! Please log in.');
+    setTimeout(() => {
+      this.navigateController.registerDetails();
+    }, 1000);
   }
 }

@@ -58,6 +58,11 @@ export const routes: Routes = [
                 path: 'register-details',
                 outlet: 'auth',
                 loadComponent: () => import('./features/public/auth/register/register-details/register-details.component').then(m => m.RegisterDetailsComponent)
+            },
+            {
+                path: 'recovery-password',
+                outlet: 'auth',
+                loadComponent: () => import('./features/public/auth/recovery-password/recovery-password.component').then(m => m.RecoveryPasswordComponent)
             }
         ]
     },

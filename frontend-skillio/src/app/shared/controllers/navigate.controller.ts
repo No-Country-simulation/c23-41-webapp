@@ -15,10 +15,6 @@ export class NavigateController {
     public navigateToRegisterFromAuthOutlet() {
         this._router.navigate([ 'authenticate', { outlets: { auth: ['register'] } }]);
     }
-    
-    public navigateToRecovery() {
-        this._router.navigate(['authenticate', { outlets: { auth: ['recovery-password'] } }]);
-    }
 
     public navigateToFeedFromPrincipalOutlet() {
         this._router.navigate(['container', { outlets: { principal: ['feed'] } }]);
@@ -42,5 +38,9 @@ export class NavigateController {
 
     public registerDetails() {
         this._router.navigate(['authenticate', { outlets: { auth: ['register-details'] } }]);
+    }
+
+    public navigateToRecoveryPassword() {
+        this._router.navigate(['authenticate', { outlets: { auth: ['recovery-password'] } }]);
     }
 }
