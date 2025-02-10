@@ -9,7 +9,7 @@ import { MenuModule } from 'primeng/menu';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { NavigateController } from '../../../shared/controllers/navigate.controller';
-import { AuthService } from '../../../core/services/auth.service';
+import { SessionService } from '../../../core/services/session.service';
 
 
 
@@ -30,7 +30,7 @@ interface User {
 export class UserMenuComponent {
   menu = viewChild('menu');
   readonly star = Star;
-  authService = inject(AuthService)
+  authService = inject(SessionService)
   navigateController = inject(NavigateController);
   @Input() user!: User;
 
@@ -81,6 +81,6 @@ export class UserMenuComponent {
 
   logout() {
     // Implement logout logic
-    this.authService.logout();
+    // this.authService.logout();
   }
 }

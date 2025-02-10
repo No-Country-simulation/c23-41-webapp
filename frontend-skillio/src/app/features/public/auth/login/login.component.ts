@@ -1,17 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import { LucideAngularModule, BookOpen } from 'lucide-angular';
-import {FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { NavigateController } from '../../../../shared/controllers/navigate.controller';
-import { AnimationHandler } from '../../../../shared/animations/animation-handler';
-import { IconLogoComponent } from '../../../../shared/components/icon-logo/icon-logo.component';
-import { AuthService } from '../../../../core/services/auth.service';
-import { PasswordModule } from 'primeng/password';
 import { CommonModule } from '@angular/common';
-import { LoginController } from './controller/login.controller';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BookOpen, LucideAngularModule } from 'lucide-angular';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 import { finalize } from 'rxjs';
+import { SessionService } from '../../../../core/services/session.service';
+import { IconLogoComponent } from '../../../../shared/components/icon-logo/icon-logo.component';
+import { NavigateController } from '../../../../shared/controllers/navigate.controller';
+import { LoginController } from './controller/login.controller';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +21,7 @@ import { finalize } from 'rxjs';
 })
 export class LoginComponent {
   readonly navigateController = inject(NavigateController);
-  readonly authService = inject(AuthService);
+  readonly authService = inject(SessionService);
   readonly loginController = inject(LoginController);
   readonly BookOpen = BookOpen;
   public isLoading = false;
@@ -47,7 +46,9 @@ export class LoginComponent {
     this.loginController.toLogin(this.loginForm.value.email as string, this.loginForm.value.password as string)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
-        next: () => this.navigateController.navigateToWelcome(),
+        next: () => {
+          this.navigateController.navigateToWelcome();
+        },
         error: (error) => {
           // Handle error - you might want to show a toast/notification here
           console.error('Login failed:', error);

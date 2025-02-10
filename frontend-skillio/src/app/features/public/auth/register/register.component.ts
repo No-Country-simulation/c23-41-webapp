@@ -11,7 +11,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 import { finalize, tap } from 'rxjs';
-import { AuthService } from '../../../../core/services/auth.service';
+import { SessionService } from '../../../../core/services/session.service';
 import { AnimationHandler } from '../../../../shared/animations/animation-handler';
 import { APP_NAME } from '../../../../shared/constants/constants';
 import { SKILLS } from '../../../../shared/constants/skills';
@@ -46,7 +46,7 @@ export class RegisterComponent {
   readonly skills = SKILLS;
 
   navigateController = inject(NavigateController);
-  authService = inject(AuthService);
+  authService = inject(SessionService);
   registerController = inject(RegisterController);
   toastService = inject(ToastServiceService);
   
@@ -75,13 +75,13 @@ export class RegisterComponent {
     this.navigateController.navigateToLoginFromAuthOutlet();
   }
 
-  toMakeRegister(email: string, password: string) {
-    setTimeout(() => {
-      this.authService.register(email, password)
-    }, 500);
-  }
+  // toMakeRegister(email: string, password: string) {
+  //   setTimeout(() => {
+  //     this.authService.register(email, password)
+  //   }, 500);
+  // }
 
-  onSubmitt() {
+  onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
       this.isLoading = true;
@@ -102,14 +102,14 @@ export class RegisterComponent {
     }
   }
 
-  onSubmit() {
-    if (this.registerForm.invalid) {
-      return;
-    }
-    this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
-    this.toastService.success('Registration successful! Please log in.');
-    setTimeout(() => {
-      this.navigateController.registerDetails();
-    }, 1000);
-  }
+  // onSubmit() {
+  //   if (this.registerForm.invalid) {
+  //     return;
+  //   }
+  //   this.toMakeRegister(this.registerForm.value.email as string, this.registerForm.value.password as string);
+  //   this.toastService.success('Registration successful! Please log in.');
+  //   setTimeout(() => {
+  //     this.navigateController.registerDetails();
+  //   }, 1000);
+  // }
 }
