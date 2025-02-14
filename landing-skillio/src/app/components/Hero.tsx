@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { HeroIllustration } from "../illustrations/Hero"
+import Image from "next/image"
 
 export function Hero() {
   return (
@@ -23,7 +23,7 @@ export function Hero() {
                 crece junto a otros estudiantes y profesionales.
               </p>
             </div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.95 }}>
               <a
                 href="https://test-skillio.netlify.app/"
                 target="_blank"
@@ -40,7 +40,7 @@ export function Hero() {
             transition={{ duration: 0.5 }}
           >
             <div className="relative w-full h-full min-h-[350px]">
-              <HeroIllustration />
+              <Image src={'/hero.svg'} alt="Hero Illustration" fill className="object-contain" priority={true} sizes="100vw" />
             </div>
           </motion.div>
         </div>
